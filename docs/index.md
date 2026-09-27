@@ -12,5 +12,5 @@ Aquí encontrarás el resumen de los apartados del tema.
 | Apartado | Contenido |
 |---|---|
 | [2.1 Conceptos básicos sobre virtualización](iso-ut2.1-conceptos-virtualizacion.md) | Host y guest, hipervisores tipo I y II, VMware, VirtualBox, Hyper-V, cloud (IaaS, PaaS, SaaS) |
-| [2.2 Proxmox VE](iso-ut2.2-proxmox.md) | Qué es Proxmox, KVM y LXC, requisitos, instalación paso a paso, actualización y estructura de directorios |
-| [2.3 Amazon Web Services (AWS)](iso-ut2.3-aws.md) | Regiones y zonas, VPC, subredes, tablas de rutas, Internet Gateway, EC2, EBS, Load Balancer y Auto Scaling, con 7 ejercicios prácticos |
+<!-- | [2.2 Proxmox VE](iso-ut2.2-proxmox.md) | Qué es Proxmox, KVM y LXC, requisitos, instalación paso a paso, actualización y estructura de directorios | -->
+<!-- | [2.3 Amazon Web Services (AWS)](iso-ut2.3-aws.md) | Regiones y zonas, VPC, subredes, tablas de rutas, Internet Gateway, EC2, EBS, Load Balancer y Auto Scaling, con 7 ejercicios prácticos | -->
