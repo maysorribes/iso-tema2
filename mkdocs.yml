@@ -35,6 +35,7 @@ nav:
   - UT2. Virtualización:
       - "2.1 Conceptos básicos sobre virtualización": iso-ut2.1-conceptos-virtualizacion.md
       - "2.2 Proxmox VE": iso-ut2.2-proxmox.md
+      - "2.3 Amazon Web Services (AWS)": iso-ut2.3-aws.md
 
 extra_css:
   - assets/extra.css
