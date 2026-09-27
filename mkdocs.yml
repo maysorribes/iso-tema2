@@ -1,0 +1,40 @@
+site_name: ISO · Tema 2 · Virtualización
+site_description: Apuntes del módulo Implantación de Sistemas Operativos (ASIR) - Tema 2
+theme:
+  name: material
+  language: es
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - content.code.copy
+  palette:
+    - scheme: default
+      primary: indigo
+      toggle:
+        icon: material/weather-night
+        name: Modo oscuro
+    - scheme: slate
+      primary: indigo
+      toggle:
+        icon: material/weather-sunny
+        name: Modo claro
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
+
+nav:
+  - Inicio: index.md
+  - UT2. Virtualización:
+      - "2.1 Conceptos básicos sobre virtualización": iso-ut2.1-conceptos-virtualizacion.md
+      - "2.2 Proxmox VE": iso-ut2.2-proxmox.md
+
+extra_css:
+  - assets/extra.css
