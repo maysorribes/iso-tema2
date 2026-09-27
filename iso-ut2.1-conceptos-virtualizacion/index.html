@@ -1,0 +1,1525 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del módulo Implantación de Sistemas Operativos (ASIR) - Tema 2">
+      
+      
+      
+      
+        <link rel="prev" href="..">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>2.1 Conceptos básicos sobre virtualización - ISO · Tema 2 · Virtualización</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#21-conceptos-basicos-sobre-virtualizacion" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ISO · Tema 2 · Virtualización" class="md-header__button md-logo" aria-label="ISO · Tema 2 · Virtualización" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ISO · Tema 2 · Virtualización
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              2.1 Conceptos básicos sobre virtualización
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ISO · Tema 2 · Virtualización" class="md-nav__button md-logo" aria-label="ISO · Tema 2 · Virtualización" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ISO · Tema 2 · Virtualización
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Virtualización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2. Virtualización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Conceptos básicos sobre virtualización
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Conceptos básicos sobre virtualización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contenidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📑 Contenidos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-definicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Definición
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Definición">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-son" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué son?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-es-una-maquina-virtual-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es una máquina virtual? (I)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-es-una-maquina-virtual-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es una máquina virtual? (II)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concepto-de-host-anfitrion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepto de HOST (anfitrión)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concepto-de-guest-invitado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepto de GUEST (invitado)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursos-compartidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos compartidos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona-realmente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cómo funciona realmente?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ventajas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Ventajas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desventajas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Desventajas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-maquinas-virtuales-de-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Máquinas virtuales de sistema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Máquinas virtuales de sistema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tipo-i-directamente-sobre-el-hardware-bare-metal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipo I — Directamente sobre el hardware (bare metal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipo-ii-sobre-otro-sistema-operativo-hosted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipo II — Sobre otro sistema operativo (hosted)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparativa-rapida-tipo-i-vs-tipo-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparativa rápida Tipo I vs Tipo II
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyper-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyper-V
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mv-de-sistema-mas-comunes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MV de sistema más comunes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ventajas-e-inconvenientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ventajas e inconvenientes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-software-de-virtualizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Software de virtualización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Software de virtualización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VMware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtualbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VirtualBox
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-virtualizacion-en-la-nube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Virtualización en la nube
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Virtualización en la nube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ventajas-e-inconvenientes-del-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ventajas e inconvenientes del Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iaas-paas-y-saas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IaaS, PaaS y SaaS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-azure-y-google-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AWS, Azure y Google Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-glosario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Resumen / glosario
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#contenidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📑 Contenidos
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-definicion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Definición
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="1. Definición">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-son" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué son?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-es-una-maquina-virtual-i" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es una máquina virtual? (I)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-es-una-maquina-virtual-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es una máquina virtual? (II)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concepto-de-host-anfitrion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepto de HOST (anfitrión)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concepto-de-guest-invitado" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepto de GUEST (invitado)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#recursos-compartidos" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Recursos compartidos
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#como-funciona-realmente" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cómo funciona realmente?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ventajas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ✅ Ventajas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#desventajas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ❌ Desventajas
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-maquinas-virtuales-de-sistema" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Máquinas virtuales de sistema
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Máquinas virtuales de sistema">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tipo-i-directamente-sobre-el-hardware-bare-metal" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipo I — Directamente sobre el hardware (bare metal)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#tipo-ii-sobre-otro-sistema-operativo-hosted" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tipo II — Sobre otro sistema operativo (hosted)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparativa-rapida-tipo-i-vs-tipo-ii" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparativa rápida Tipo I vs Tipo II
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hyper-v" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hyper-V
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mv-de-sistema-mas-comunes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        MV de sistema más comunes
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ventajas-e-inconvenientes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ventajas e inconvenientes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-software-de-virtualizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Software de virtualización
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="3. Software de virtualización">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#vmware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VMware
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#virtualbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        VirtualBox
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-virtualizacion-en-la-nube" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Virtualización en la nube
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="4. Virtualización en la nube">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ventajas-e-inconvenientes-del-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ventajas e inconvenientes del Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#iaas-paas-y-saas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        IaaS, PaaS y SaaS
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#aws-azure-y-google-cloud" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        AWS, Azure y Google Cloud
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen-glosario" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Resumen / glosario
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="21-conceptos-basicos-sobre-virtualizacion">2.1 Conceptos básicos sobre virtualización<a class="headerlink" href="#21-conceptos-basicos-sobre-virtualizacion" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p><strong>Módulo:</strong> ASIR – Implantación de Sistemas Operativos<br />
+<strong>Centro:</strong> IES El Caminàs</p>
+</div>
+<hr />
+<div class="admonition abstract">
+<p class="admonition-title">Objetivos</p>
+<p>Adquirir los conocimientos básicos sobre virtualización.</p>
+</div>
+<h2 id="contenidos">📑 Contenidos<a class="headerlink" href="#contenidos" title="Permanent link">&para;</a></h2>
+<ol>
+<li><a href="#1-definicion">Definición</a></li>
+<li><a href="#2-maquinas-virtuales-de-sistema">Máquinas virtuales de sistema</a></li>
+<li><a href="#3-software-de-virtualizacion">Software de virtualización</a></li>
+<li><a href="#4-virtualizacion-en-la-nube">Virtualización en la nube</a></li>
+<li><a href="#ventajas-e-inconvenientes-del-cloud">Ventajas e inconvenientes</a></li>
+<li><a href="#iaas-paas-y-saas">IaaS, PaaS y SaaS</a></li>
+<li><a href="#aws-azure-y-google-cloud">AWS, Azure y Google Cloud</a></li>
+</ol>
+<hr />
+<h2 id="1-definicion">1. Definición<a class="headerlink" href="#1-definicion" title="Permanent link">&para;</a></h2>
+<h3 id="que-son">¿Qué son?<a class="headerlink" href="#que-son" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Programa que <strong>simula un PC</strong>.</li>
+<li>Se pueden ejecutar programas sobre ese "PC virtual" como si fuese hardware real.</li>
+<li>Procesos limitados: <strong>no pueden ejecutarse fuera</strong> de la máquina virtual.</li>
+<li>Permiten ejecutar <strong>varios sistemas operativos sin que interfieran</strong> entre ellos (particionamiento, sector de arranque, etc.).</li>
+</ul>
+<h3 id="que-es-una-maquina-virtual-i">¿Qué es una máquina virtual? (I)<a class="headerlink" href="#que-es-una-maquina-virtual-i" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Es un <strong>SOFTWARE</strong> que podemos instalar en cualquier ordenador.</li>
+<li>Este software crea un entorno virtual que <strong>EMULA</strong> el hardware de un ordenador.</li>
+<li>Podemos <strong>CREAR</strong> tantos ordenadores como necesitemos.</li>
+<li>Cada <strong>ORDENADOR VIRTUAL</strong> ejecuta <strong>SU PROPIO</strong> sistema operativo y las aplicaciones que instalemos en él.</li>
+</ul>
+<h3 id="que-es-una-maquina-virtual-ii">¿Qué es una máquina virtual? (II)<a class="headerlink" href="#que-es-una-maquina-virtual-ii" title="Permanent link">&para;</a></h3>
+<p>Uno de los usos domésticos más extendidos es <strong>probar sistemas operativos</strong>.
+Por ejemplo, podemos ejecutar Windows desde nuestro Linux habitual sin instalarlo directamente en el equipo y sin miedo a que se "desconfigure" el sistema operativo principal.</p>
+<h3 id="concepto-de-host-anfitrion">Concepto de HOST (anfitrión)<a class="headerlink" href="#concepto-de-host-anfitrion" title="Permanent link">&para;</a></h3>
+<p>El <strong>HOST ANFITRIÓN</strong> es el <strong>ordenador físico</strong> en el que instalamos VirtualBox o cualquier otro software de virtualización.</p>
+<p><img alt="Host anfitrión con varias máquinas virtuales" src="../images/virtualizacion/host-anfitrion.png" width="300" /> <img alt="Un servidor físico alojando varios servidores virtuales" src="../images/virtualizacion/servidor-fisico-mv.png" width="260" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Solo disponemos de <strong>un</strong> HOST anfitrión.</p>
+</div>
+<h3 id="concepto-de-guest-invitado">Concepto de GUEST (invitado)<a class="headerlink" href="#concepto-de-guest-invitado" title="Permanent link">&para;</a></h3>
+<p>Cada <strong>ordenador virtual</strong> que creamos mediante el software de virtualización.</p>
+<p><img alt="Host con dos guest" src="../images/virtualizacion/guest-invitado.png" width="380" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Disponemos de tantos GUEST como máquinas virtuales creemos. <strong>El límite lo ponen los recursos del anfitrión.</strong></p>
+</div>
+<h3 id="recursos-compartidos">Recursos compartidos<a class="headerlink" href="#recursos-compartidos" title="Permanent link">&para;</a></h3>
+<p>Cada <strong>GUEST</strong> comparte los recursos hardware con el <strong>HOST</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Recurso</th>
+<th>Ejemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🧠 Memoria RAM</td>
+<td>Módulos DDR</td>
+</tr>
+<tr>
+<td>💾 Disco duro</td>
+<td>HDD / SSD</td>
+</tr>
+<tr>
+<td>⚙️ Procesador</td>
+<td>CPU Intel / AMD</td>
+</tr>
+<tr>
+<td>🖥️ Tarjeta gráfica</td>
+<td>GPU</td>
+</tr>
+<tr>
+<td>🌐 Tarjeta de red</td>
+<td>NIC</td>
+</tr>
+<tr>
+<td>📀 Otros dispositivos</td>
+<td>DVD/CD-ROM, disquetera, USB…</td>
+</tr>
+</tbody>
+</table>
+<h3 id="como-funciona-realmente">¿Cómo funciona realmente?<a class="headerlink" href="#como-funciona-realmente" title="Permanent link">&para;</a></h3>
+<p><img alt="Capas: guests, capa de virtualización y host" src="../images/virtualizacion/como-funciona.png" width="600" /></p>
+<p><strong>¿Cuántos ordenadores tenemos en ejecución?</strong> → <strong>3</strong> (1 host + 2 guest).</p>
+<h3 id="ventajas">✅ Ventajas<a class="headerlink" href="#ventajas" title="Permanent link">&para;</a></h3>
+<ol>
+<li><strong>Independencia:</strong> una máquina virtual <strong>no depende</strong> del hardware ni del sistema operativo del HOST sobre el que se ejecuta. Se puede mover entre equipos distintos.</li>
+<li><strong>Mejor aprovechamiento del HOST:</strong> el hardware actual es muy potente, así que un único servidor físico puede alojar varios servicios:</li>
+<li>GUEST 1 → Servidor de archivos</li>
+<li>GUEST 2 → Servidor de bases de datos</li>
+<li>GUEST 3 → Servidor de correo</li>
+</ol>
+<p><img alt="Un host con tres guest servidores" src="../images/virtualizacion/aprovechamiento-host.png" width="320" /> <img alt="Varias MV sobre un servidor VMware" src="../images/virtualizacion/vmware-servidor.png" width="240" /></p>
+<ol>
+<li><strong>Control del estado:</strong> una MV se puede encender (<em>Power On</em>), reiniciar (<em>Reset</em>), <strong>suspender</strong> (<em>Suspend</em>) y apagar (<em>Power Off</em>).</li>
+</ol>
+<p><img alt="Menú Power On, Reset, Suspend, Power Off" src="../images/virtualizacion/estados-mv.png" width="180" /></p>
+<ul>
+<li>Al <strong>suspender</strong>, se guarda en un fichero el contenido de la memoria y se apaga.</li>
+<li>Al <strong>reanudar</strong>, se recupera la memoria desde ese fichero y continuamos en el mismo estado en que estábamos.</li>
+</ul>
+<h3 id="desventajas">❌ Desventajas<a class="headerlink" href="#desventajas" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Cuantos más sistemas virtualizados queramos tener, <strong>más recursos y potencia</strong> necesita el sistema anfitrión.</li>
+<li>Los factores que determinan cuántas MV se pueden soportar y su rendimiento son principalmente:</li>
+<li>Cantidad y velocidad de la <strong>memoria RAM</strong>.</li>
+<li>Potencia del <strong>procesador</strong>.</li>
+<li>Velocidad de lectura, acceso y transferencia del <strong>disco duro</strong>.</li>
+<li>En ocasiones pueden aparecer <strong>problemas de compatibilidad</strong> con el hardware virtualizado (aunque en las versiones actuales casi no ocurre).</li>
+</ul>
+<hr />
+<h2 id="2-maquinas-virtuales-de-sistema">2. Máquinas virtuales de sistema<a class="headerlink" href="#2-maquinas-virtuales-de-sistema" title="Permanent link">&para;</a></h2>
+<p>El <strong>hardware subyacente</strong> ejecuta varias máquinas virtuales, cada una con su propio sistema operativo y su propio hardware virtual (CPU, disco, red y memoria).</p>
+<p><img alt="Invitados (guest) sobre el hardware del anfitrión (host)" src="../images/virtualizacion/mv-sistema-host-guest.png" width="600" /></p>
+<h3 id="tipo-i-directamente-sobre-el-hardware-bare-metal">Tipo I — Directamente sobre el hardware (<em>bare metal</em>)<a class="headerlink" href="#tipo-i-directamente-sobre-el-hardware-bare-metal" title="Permanent link">&para;</a></h3>
+<p>El <strong>hipervisor</strong> está incrustado en un sistema operativo muy ligero, de forma que los recursos físicos se aprovechan casi en su totalidad por los sistemas virtualizados.</p>
+<p><strong>Ejemplos:</strong> VMware vSphere ESXi, Proxmox.</p>
+<p><img alt="Hipervisor tipo I sobre hardware real" src="../images/virtualizacion/hipervisor-tipo1.png" width="550" /></p>
+<p><strong>Ejemplo de uso (Proxmox):</strong> desde la interfaz web se gestionan las máquinas virtuales y contenedores (iniciar, parar, abrir consola, migrar, ver uso de CPU/memoria, etc.).</p>
+<p><img alt="Interfaz web de Proxmox VE" src="../images/virtualizacion/proxmox.png" width="650" /></p>
+<p><strong>Arquitectura típica:</strong></p>
+<ul>
+<li>Uno o varios <strong>servidores de virtualización</strong>.</li>
+<li>Un <strong>cliente de gestión vía web</strong> que se conecta por red.</li>
+<li>En entornos de <strong>alta disponibilidad</strong> debe haber más de un servidor (normalmente <strong>3</strong>).</li>
+</ul>
+<p><img alt="Servidores de virtualización gestionados desde un cliente web" src="../images/virtualizacion/arquitectura-tipo1.png" width="500" /></p>
+<h3 id="tipo-ii-sobre-otro-sistema-operativo-hosted">Tipo II — Sobre otro sistema operativo (<em>hosted</em>)<a class="headerlink" href="#tipo-ii-sobre-otro-sistema-operativo-hosted" title="Permanent link">&para;</a></h3>
+<p>El <strong>hipervisor es un programa más</strong> que se ejecuta dentro del sistema operativo instalado.</p>
+<p><img alt="Hipervisor tipo II sobre el sistema operativo real" src="../images/virtualizacion/hipervisor-tipo2.png" width="550" /></p>
+<p><strong>Ejemplos:</strong> VirtualBox, VMware Workstation / Player, Parallels.</p>
+<h3 id="comparativa-rapida-tipo-i-vs-tipo-ii">Comparativa rápida Tipo I vs Tipo II<a class="headerlink" href="#comparativa-rapida-tipo-i-vs-tipo-ii" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Tipo I (bare metal)</th>
+<th>Tipo II (hosted)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Se instala sobre</td>
+<td>El hardware directamente</td>
+<td>Un sistema operativo existente</td>
+</tr>
+<tr>
+<td>Rendimiento</td>
+<td>Muy alto</td>
+<td>Menor (capa extra del SO)</td>
+</tr>
+<tr>
+<td>Uso típico</td>
+<td>Servidores, CPD, producción</td>
+<td>Pruebas, formación, escritorio</td>
+</tr>
+<tr>
+<td>Ejemplos</td>
+<td>ESXi, Proxmox, Hyper-V, Xen</td>
+<td>VirtualBox, VMware Workstation, Parallels</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hyper-v">Hyper-V<a class="headerlink" href="#hyper-v" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Hipervisor integrado en <strong>Windows Server</strong> 2008, 2008 R2, 2012 y 2016 (se activa como un <strong>rol</strong> desde el <em>Administrador del servidor</em>).</li>
+<li>En funcionalidad y capacidades está al nivel de VMware y es superior a productos como VirtualBox.</li>
+<li>La versión de Windows Server 2012 permite:</li>
+<li>Discos duros virtuales de hasta <strong>64 TB</strong>.</li>
+<li>Hasta <strong>1 TB de RAM</strong> por máquina virtual.</li>
+<li>
+<p>Hasta <strong>64 procesadores</strong> por máquina virtual.
+<img alt="Rol Hyper-V en el Administrador del servidor" src="../images/virtualizacion/hyperv-administrador.png" width="550" /></p>
+</li>
+<li>
+<p>Para saber más: <a href="https://learn.microsoft.com/es-es/windows-server/virtualization/hyper-v/hyper-v-overview">Hyper-V en Microsoft Learn</a> · <a href="https://es.wikipedia.org/wiki/Hyper-V">Hyper-V en Wikipedia</a></p>
+</li>
+</ul>
+<h3 id="mv-de-sistema-mas-comunes">MV de sistema más comunes<a class="headerlink" href="#mv-de-sistema-mas-comunes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>VMware (vSphere / Workstation)</li>
+<li>VirtualBox</li>
+<li>Xen (paravirtualización)</li>
+<li>Parallels (macOS)</li>
+<li>Hyper-V</li>
+</ul>
+<h3 id="ventajas-e-inconvenientes">Ventajas e inconvenientes<a class="headerlink" href="#ventajas-e-inconvenientes" title="Permanent link">&para;</a></h3>
+<ul>
+<li>❌ Añaden complejidad en tiempo de ejecución.</li>
+<li>❌ Ralentización del sistema.</li>
+<li>✅ Su <strong>flexibilidad compensa</strong> esta pérdida de eficiencia.</li>
+</ul>
+<hr />
+<h2 id="3-software-de-virtualizacion">3. Software de virtualización<a class="headerlink" href="#3-software-de-virtualizacion" title="Permanent link">&para;</a></h2>
+<h3 id="vmware">VMware<a class="headerlink" href="#vmware" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>VMware Inc.</strong> (VM de <em>Virtual Machine</em>), filial de EMC Corporation, proporciona la mayor parte del software de virtualización para ordenadores compatibles <strong>x86</strong>.</li>
+<li>Productos: <strong>VMware Workstation</strong> y los gratuitos <strong>VMware Server</strong> y <strong>VMware Player</strong>.</li>
+<li>Funciona en <strong>Windows</strong>, <strong>Linux</strong> y <strong>macOS</strong> con procesador Intel (bajo el nombre de <strong>VMware Fusion</strong>).</li>
+<li><em>Ejemplo visto en clase:</em> Windows Server 2012 ejecutándose sobre Linux Mint con VMware Workstation Player.</li>
+</ul>
+<p><img alt="Windows Server 2012 en VMware sobre Linux Mint" src="../images/virtualizacion/vmware-winserver-linuxmint.png" width="650" /></p>
+<div class="admonition tip">
+<p class="admonition-title">Nota actualizada</p>
+<p>Desde finales de 2023 VMware pertenece a <strong>Broadcom</strong>. VMware Server está descontinuado y VMware Player se ha integrado en Workstation.</p>
+</div>
+<h3 id="virtualbox">VirtualBox<a class="headerlink" href="#virtualbox" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Software de virtualización de <strong>Oracle</strong>, gratuito y multiplataforma (Windows, Linux, macOS).</li>
+<li>Hipervisor de <strong>tipo II</strong>.</li>
+<li>Permite gestionar varias MV (Ubuntu, Windows XP, Solaris…) desde el <em>VirtualBox Manager</em>, con instantáneas (<em>snapshots</em>) y configuración de pantalla, almacenamiento, audio, red y USB.</li>
+</ul>
+<p><img alt="VirtualBox Manager ejecutando Ubuntu" src="../images/virtualizacion/virtualbox.png" width="650" /></p>
+<hr />
+<h2 id="4-virtualizacion-en-la-nube">4. Virtualización en la nube<a class="headerlink" href="#4-virtualizacion-en-la-nube" title="Permanent link">&para;</a></h2>
+<h3 id="ventajas-e-inconvenientes-del-cloud">Ventajas e inconvenientes del Cloud<a class="headerlink" href="#ventajas-e-inconvenientes-del-cloud" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>✅ Ventajas</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Elasticidad y escalabilidad</strong></td>
+<td>Permite aumentar los recursos de forma inmediata y sin afectar al usuario.</td>
+</tr>
+<tr>
+<td><strong>Inmediatez</strong></td>
+<td>Despliega sistemas que de otro modo tardarían semanas en implementarse.</td>
+</tr>
+<tr>
+<td><strong>Costes</strong></td>
+<td>A largo plazo, alojar los servicios virtuales en la nube es más económico.</td>
+</tr>
+<tr>
+<td><strong>Equipo operativo</strong></td>
+<td>No hay costes de equipos operativos: están incluidos en la suscripción.</td>
+</tr>
+<tr>
+<td><strong>Acceso</strong></td>
+<td>Se accede a los recursos desde cualquier sitio con Internet.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>❌ Inconvenientes</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Protección de datos</strong></td>
+<td>Los datos están expuestos a terceros; hay que revisar los acuerdos de protección de la información.</td>
+</tr>
+<tr>
+<td><strong>Independencia</strong></td>
+<td>Al necesitar conexión a Internet se pierde independencia de uso.</td>
+</tr>
+<tr>
+<td><strong>Costes recurrentes</strong></td>
+<td>Aunque a largo plazo es más barata, hay que pagar cuotas mensuales.</td>
+</tr>
+<tr>
+<td><strong>Administración</strong></td>
+<td>No se dispone de administración del servidor físico.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="iaas-paas-y-saas">IaaS, PaaS y SaaS<a class="headerlink" href="#iaas-paas-y-saas" title="Permanent link">&para;</a></h3>
+<p>Son distintos <strong>niveles de servicio</strong> en el Cloud (hay más, pero estos son los más habituales):</p>
+<table>
+<thead>
+<tr>
+<th>Modelo</th>
+<th>Significado</th>
+<th>Qué ofrece</th>
+<th>Ejemplos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IaaS</strong></td>
+<td><em>Infrastructure as a Service</em></td>
+<td>Uso directo de <strong>máquinas virtuales</strong>. El cliente las crea y administra desde cero, instalando todo lo que necesite.</td>
+<td>Amazon Web Services, Azure, Google Cloud</td>
+</tr>
+<tr>
+<td><strong>PaaS</strong></td>
+<td><em>Platform as a Service</em></td>
+<td>La <strong>infraestructura</strong> necesaria para crear, testear e implementar aplicaciones en la nube.</td>
+<td>Oracle Cloud Applications, Azure, Google App Engine</td>
+</tr>
+<tr>
+<td><strong>SaaS</strong></td>
+<td><em>Software as a Service</em></td>
+<td>La <strong>aplicación</strong> ya funcionando en la nube. Sin trabajo de mantenimiento.</td>
+<td>Gmail, Facebook… (cualquier app con usuario y contraseña)</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span><code>  Más control del cliente  ◄──────────────────────────►  Menos gestión
+        IaaS                       PaaS                       SaaS
+   (tú gestionas SO,         (tú gestionas solo         (solo usas la
+    apps y datos)             tu app y datos)             aplicación)
+</code></pre></div>
+<h3 id="aws-azure-y-google-cloud">AWS, Azure y Google Cloud<a class="headerlink" href="#aws-azure-y-google-cloud" title="Permanent link">&para;</a></h3>
+<p>Los tres grandes proveedores:</p>
+<ul>
+<li><strong>AWS:</strong> Amazon Web Services</li>
+<li><strong>Azure:</strong> Microsoft Azure</li>
+<li><strong>Google Cloud:</strong> Google</li>
+</ul>
+<p><strong>Cuota de mercado en infraestructura cloud (Q4 2023)</strong> — <em>Fuente: Canalys, febrero 2024</em></p>
+<table>
+<thead>
+<tr>
+<th>Proveedor</th>
+<th>Cuota</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AWS</td>
+<td>31 %</td>
+</tr>
+<tr>
+<td>Microsoft Azure</td>
+<td>26 %</td>
+</tr>
+<tr>
+<td>Google Cloud</td>
+<td>10 %</td>
+</tr>
+<tr>
+<td>Otros</td>
+<td>34 %</td>
+</tr>
+<tr>
+<td><strong>Gasto total</strong></td>
+<td><strong>78,1 mil millones US$</strong></td>
+</tr>
+</tbody>
+</table>
+<p><img alt="Cuota de mercado cloud Q4 2023 (Canalys)" src="../images/virtualizacion/cuota-mercado-cloud.png" width="600" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Los tres principales suman el <strong>66 %</strong> del gasto total en cloud.</p>
+</div>
+<p><strong>¿Cuál elegir?</strong></p>
+<ul>
+<li>Los tres ofrecen prácticamente las mismas opciones: la elección depende de la <strong>experiencia del equipo</strong>, los <strong>precios</strong> y los <strong>distribuidores</strong> con los que se trabaje.</li>
+<li><strong>Azure:</strong> destaca por su integración con <strong>Active Directory</strong> de Microsoft. Es la mejor opción para migrar un directorio a la nube, incluyendo VMware (<em>bare metal</em>).</li>
+<li><strong>AWS:</strong> la opción más potente en <strong>virtualización IaaS</strong>, también con posibilidad de VMware (<em>bare metal</em>).</li>
+<li><strong>Google Cloud:</strong> ofrece los <strong>precios más competitivos</strong>.</li>
+</ul>
+<hr />
+<h2 id="resumen-glosario">📌 Resumen / glosario<a class="headerlink" href="#resumen-glosario" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Máquina virtual (MV)</strong></td>
+<td>Software que emula el hardware de un ordenador completo.</td>
+</tr>
+<tr>
+<td><strong>Host / anfitrión</strong></td>
+<td>Equipo físico donde se ejecuta el software de virtualización.</td>
+</tr>
+<tr>
+<td><strong>Guest / invitado</strong></td>
+<td>Cada máquina virtual creada sobre el host.</td>
+</tr>
+<tr>
+<td><strong>Hipervisor</strong></td>
+<td>Capa de software que gestiona y reparte los recursos entre las MV.</td>
+</tr>
+<tr>
+<td><strong>Tipo I (bare metal)</strong></td>
+<td>Hipervisor instalado directamente sobre el hardware.</td>
+</tr>
+<tr>
+<td><strong>Tipo II (hosted)</strong></td>
+<td>Hipervisor que se ejecuta como una aplicación sobre un SO.</td>
+</tr>
+<tr>
+<td><strong>IaaS / PaaS / SaaS</strong></td>
+<td>Niveles de servicio en la nube: infraestructura, plataforma y software.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
