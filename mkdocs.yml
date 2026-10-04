@@ -32,15 +32,14 @@ markdown_extensions:
 
 # Páginas preparadas pero NO publicadas todavía
 exclude_docs: |
-  iso-ut2.2-proxmox.md
   iso-ut2.3-aws.md
 
 nav:
   - Inicio: index.md
   - UT2. Virtualización:
       - "2.1 Conceptos básicos sobre virtualización": iso-ut2.1-conceptos-virtualizacion.md
-      # Ocultos de momento (quitar la # para publicarlos):
-      # - "2.2 Proxmox VE": iso-ut2.2-proxmox.md
+      - "2.2 Proxmox VE": iso-ut2.2-proxmox.md
+      # Oculto de momento (quitar la # para publicarlo):
       # - "2.3 Amazon Web Services (AWS)": iso-ut2.3-aws.md
 
 extra_css:
