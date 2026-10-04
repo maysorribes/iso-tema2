@@ -38,7 +38,9 @@ nav:
   - Inicio: index.md
   - UT2. Virtualización:
       - "2.1 Conceptos básicos sobre virtualización": iso-ut2.1-conceptos-virtualizacion.md
-      - "2.2 Proxmox VE": iso-ut2.2-proxmox.md
+      - "2.2 Proxmox VE":
+          - "Teoría": iso-ut2.2-proxmox.md
+          - "Práctica 1": iso-ut2-practica1-proxmox.md
       # Oculto de momento (quitar la # para publicarlo):
       # - "2.3 Amazon Web Services (AWS)": iso-ut2.3-aws.md
 
