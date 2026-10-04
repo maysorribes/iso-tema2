@@ -16,9 +16,18 @@ Al terminar deberías ser capaz de:
 
 **Capturas identificables:** el nombre del servidor Proxmox, de la máquina virtual y del contenedor deben incluir tu apellido (por ejemplo `pve-garcia`, `vm-garcia`, `ct-garcia`), de modo que se vea en las capturas.
 
-## Preparación: la máquina de VirtualBox
+## Preparación: el escenario en VirtualBox
 
-Proxmox se instala dentro de una máquina de VirtualBox, y dentro de Proxmox crearás más máquinas: es virtualización anidada. Para que funcione, crea la máquina de VirtualBox con esta configuración:
+Trabajarás con dos máquinas de VirtualBox conectadas a la misma red interna: el servidor Proxmox y un cliente Windows desde el que lo administrarás con el navegador. Dentro de Proxmox crearás además una máquina virtual y un contenedor, que estarán en esa misma red. La red interna no tiene salida a Internet, así que todo el material (ISO y plantilla) se te facilitará en clase.
+
+| Equipo | Dirección IP | Dónde se ejecuta |
+| --- | --- | --- |
+| Servidor Proxmox | `192.168.100.2/24` | Máquina de VirtualBox |
+| Cliente Windows | `192.168.100.3/24` | Máquina de VirtualBox |
+| Contenedor LXC | `192.168.100.20/24` | Dentro de Proxmox |
+| Máquina virtual | `192.168.100.30/24` | Dentro de Proxmox |
+
+### Máquina de VirtualBox para Proxmox
 
 | Ajuste | Valor |
 | --- | --- |
@@ -27,13 +36,14 @@ Proxmox se instala dentro de una máquina de VirtualBox, y dentro de Proxmox cre
 | Procesadores | 2 o más |
 | Virtualización anidada | Sistema → Procesador → marcar "Habilitar VT-x/AMD-V anidado" |
 | Disco | 50 GB, reservado dinámicamente |
-| Red | NAT, con reenvío del puerto 8006 |
+| Red | Red interna, con nombre `intnet`. En Avanzadas, modo promiscuo: "Permitir todo" |
 
-### Virtualización anidada
+Dos ajustes son imprescindibles:
 
-Sin la opción "VT-x/AMD-V anidado", las máquinas virtuales no arrancan dentro de Proxmox y aparece el error "KVM virtualisation configured, but not available".
+- **VT-x/AMD-V anidado.** Proxmox se ejecuta dentro de VirtualBox y a su vez ejecuta máquinas: es virtualización anidada. Sin esta opción, las máquinas virtuales no arrancan dentro de Proxmox y aparece el error "KVM virtualisation configured, but not available".
+- **Modo promiscuo "Permitir todo".** Sin él, el cliente Windows puede comunicarse con Proxmox, pero no con la máquina virtual ni con el contenedor que crees dentro.
 
-!!! warning "Si la casilla aparece en gris"
+!!! warning "Si la casilla de VT-x/AMD-V anidado aparece en gris"
     Si no se puede marcar, actívala por comando. Apaga del todo la máquina, abre el Símbolo del sistema de Windows y ejecuta, poniendo entre comillas el nombre exacto de tu máquina:
 
     ```
@@ -43,44 +53,27 @@ Sin la opción "VT-x/AMD-V anidado", las máquinas virtuales no arrancan dentro 
 
     Al volver a abrir la configuración, la casilla aparecerá marcada.
 
-### Red: NAT
+### Cliente Windows
 
-La tarjeta de red de la máquina se deja en modo "NAT" (no confundir con "Red NAT"). Con NAT, Proxmox tiene salida a Internet pero queda detrás de VirtualBox, y hay que añadir un reenvío de puertos para llegar a su consola web: en Red → Avanzadas → Reenvío de puertos, crea una regla con protocolo TCP, puerto anfitrión 8006 y puerto invitado 8006, dejando las direcciones IP vacías.
-
-Con esta configuración:
-
-- La consola web de Proxmox se abre en `https://localhost:8006`.
-- Proxmox recibe la dirección `10.0.2.15`, con puerta de enlace `10.0.2.2`.
-- La máquina virtual y el contenedor se conectan a `vmbr0` con una IP estática distinta para cada uno, dentro de la red `10.0.2.0/24`. Tienen Internet, pero no son accesibles directamente desde el equipo anfitrión.
-
-!!! danger "Con NAT no se puede usar DHCP dentro de Proxmox"
-    VirtualBox entrega siempre la dirección `10.0.2.15`, la misma que ya tiene Proxmox, y la máquina o el contenedor que la reciban se quedan sin red. Usa estas direcciones fijas:
-
-    | Equipo | Dirección IP | Puerta de enlace |
-    | --- | --- | --- |
-    | Proxmox | `10.0.2.15/24` | `10.0.2.2` |
-    | Contenedor | `10.0.2.20/24` | `10.0.2.2` |
-    | Máquina virtual | `10.0.2.30/24` | `10.0.2.2` |
-
-    Como servidor DNS, usa el mismo que tiene Proxmox (lo verás en el nodo, en System → DNS) o `8.8.8.8`.
+Usa una máquina virtual de Windows que ya tengas. En su configuración de red, conéctala también a la red interna `intnet` y, dentro de Windows, asígnale la dirección `192.168.100.3` con máscara `255.255.255.0`.
 
 ## Ejercicio 1. Instalación de Proxmox VE
 
-Instala Proxmox VE en la máquina de VirtualBox y accede a su consola web desde el equipo anfitrión.
+Instala Proxmox VE en la máquina de VirtualBox y accede a su consola web desde el cliente Windows.
 
-Descarga la ISO de la [página oficial de Proxmox](https://www.proxmox.com/en/downloads). Si estás en el instituto, se te facilitará la ISO para no sobrecargar la red.
-
-1. Arranca la máquina con la ISO y elige la instalación gráfica.
+1. Arranca la máquina con la ISO de Proxmox y elige la instalación gráfica.
 2. Selecciona el disco de destino.
 3. Indica país, zona horaria (Europe/Madrid) y teclado.
 4. Define la contraseña de `root` y un correo.
-5. Configura la red de gestión: nombre del servidor con tu apellido (por ejemplo `pve-garcia.local`) y los datos de red que propone el instalador: dirección `10.0.2.15/24`, puerta de enlace `10.0.2.2` y el DNS que aparezca.
+5. Configura la red de gestión: nombre del servidor con tu apellido (por ejemplo `pve-garcia.local`), dirección `192.168.100.2/24`, puerta de enlace `192.168.100.1` y DNS `192.168.100.1`. La puerta de enlace y el DNS no existen en esta red, pero el instalador obliga a rellenarlos.
 6. Revisa el resumen e instala. Al reiniciar, retira la ISO.
-7. Desde el navegador del anfitrión entra en `https://localhost:8006` con el usuario `root`. El aviso del certificado y el de "No valid subscription" son normales: acepta y continúa.
+7. En el cliente Windows, abre el Símbolo del sistema y comprueba la conexión con `ping 192.168.100.2`.
+8. En el navegador del cliente Windows entra en `https://192.168.100.2:8006` con el usuario `root`. El aviso del certificado y el de "No valid subscription" son normales: acepta y continúa.
 
 **Evidencias:**
 
 - Captura del resumen de la instalación.
+- Captura del ping desde el cliente Windows a Proxmox.
 - Captura de la consola web con la sesión iniciada, donde se vea el nombre de tu nodo.
 
 **Responde:**
@@ -96,24 +89,33 @@ Puedes elegir la distribución que quieras, con o sin entorno gráfico. Si la qu
 
 **Guías de apoyo (Somebooks):** [Almacenar una imagen ISO en Proxmox VE](http://somebooks.es/almacenar-una-imagen-iso-proxmox-ve/) y [Crear una máquina virtual en Proxmox VE](http://somebooks.es/crear-una-maquina-virtual-proxmox-ve/). Están hechas con una versión anterior de Proxmox, así que alguna pantalla puede no coincidir exactamente con la tuya.
 
-1. **Sube la ISO.** En el almacenamiento `local` del nodo, entra en "Imágenes ISO" y pulsa "Cargar".
-2. **Pulsa "Crear VM"** y recorre el asistente:
+1. **Pon la ISO de Linux a disposición de Proxmox.** Con la máquina de Proxmox encendida, en el menú de su ventana de VirtualBox elige Dispositivos → Unidades ópticas → Seleccionar imagen de disco, y escoge la ISO de Linux. Proxmox la verá como un CD insertado en su lector.
+2. **En la consola web, pulsa "Crear VM"** y recorre el asistente:
     - General: nombre con tu apellido (por ejemplo `vm-garcia`).
-    - SO: selecciona la ISO que has subido.
+    - SO: marca "Usar lector físico de CD/DVD".
     - Sistema: valores por defecto.
     - Discos: 20 GB en `local-lvm`.
     - CPU: 2 núcleos.
     - Memoria: 2048 MB (4096 MB si lleva escritorio y tu equipo lo permite).
     - Red: puente `vmbr0`, modelo VirtIO.
 3. **Inicia la máquina** y abre su consola desde Proxmox.
-4. **Completa la instalación** del sistema operativo hasta poder iniciar sesión.
+4. **Completa la instalación** del sistema operativo hasta poder iniciar sesión. No hay Internet, así que omite las actualizaciones durante la instalación.
+5. **Configura la red** del sistema instalado con la dirección estática `192.168.100.30`, máscara `255.255.255.0`.
+6. **Comprueba la conexión** desde el cliente Windows con `ping 192.168.100.30`.
 
-**Red de la máquina:** una vez instalado el sistema, configúrale la IP estática de la tabla de la preparación (`10.0.2.30/24`, puerta de enlace `10.0.2.2`) y el servidor DNS. No uses DHCP.
+!!! tip "Otra forma de cargar la ISO"
+    Si prefieres tenerla en el almacén de Proxmox, con la ISO insertada como en el paso 1 ejecuta en la consola del nodo ("Shell"):
+
+    ```
+    dd if=/dev/sr0 of=/var/lib/vz/template/iso/linux.iso bs=4M
+    ```
+
+    Aparecerá en `local` → "Imágenes ISO" y podrás elegirla en la pestaña SO del asistente.
 
 !!! warning "Si la máquina no arranca o Proxmox deja de responder al iniciarla"
     Es probable que Windows tenga Hyper-V activo. Se reconoce porque, en la ventana de VirtualBox de Proxmox, aparece abajo a la derecha el icono de una tortuga verde.
 
-    En ese caso, en la máquina virtual entra en "Options", pon "KVM hardware virtualization" en "No" y, en "Hardware" → "Processors", elige el tipo `qemu64`. La máquina funcionará emulada: puede tardar entre 5 y 15 minutos en arrancar y usará la CPU al 100 %. Con Hyper-V activo, usa una distribución sin entorno gráfico.
+    En ese caso, en la máquina virtual entra en "Options", pon "KVM hardware virtualization" en "No" y, en "Hardware" → "Processors", elige el tipo `qemu64`. La máquina funcionará emulada y muy lenta, así que usa una distribución sin entorno gráfico.
 
     Pulsa "Start" una sola vez y espera; si lo pulsas varias veces, o pulsas "Shutdown" mientras arranca, aparecerá un error de bloqueo.
 
@@ -121,6 +123,7 @@ Puedes elegir la distribución que quieras, con o sin entorno gráfico. Si la qu
 
 - Captura de la pestaña "Confirmar" del asistente con el resumen de la configuración.
 - Captura de un terminal dentro de la máquina ya instalada con la salida de `hostname`, `ip a` y `uname -r`.
+- Captura del ping desde el cliente Windows a la máquina virtual.
 - Captura del "Resumen" de la máquina en Proxmox mientras está en marcha.
 
 **Responde:**
@@ -131,23 +134,29 @@ Puedes elegir la distribución que quieras, con o sin entorno gráfico. Si la qu
 
 ## Ejercicio 3. Crear y usar un contenedor LXC
 
-Crea un contenedor LXC a partir de una plantilla, ponlo en marcha e instala en él un servidor web.
+Crea un contenedor LXC a partir de una plantilla, ponlo en marcha y sirve desde él una página web que se vea en el cliente Windows.
 
 **Guía de apoyo (Somebooks):** [Crear contenedores Linux a partir de plantillas en Proxmox VE](http://somebooks.es/crear-contenedores-linux-partir-plantillas-proxmox-ve/). Está hecha con una versión anterior de Proxmox, así que alguna pantalla puede no coincidir exactamente con la tuya.
 
-1. **Consigue la plantilla.** En el almacenamiento `local`, entra en "Plantillas de CT", pulsa "Plantillas" y descarga una de Debian o Ubuntu. Si Proxmox no tiene salida a Internet, se te facilitará el archivo para subirlo con "Cargar".
+1. **Sube la plantilla.** Se te facilitará una plantilla de Ubuntu. Cópiala al cliente Windows (por ejemplo, con una carpeta compartida de VirtualBox) y, en la consola web, entra en el almacenamiento `local` → "Plantillas de CT" y pulsa "Cargar".
 2. **Pulsa "Crear CT"** y recorre el asistente:
     - General: nombre con tu apellido (por ejemplo `ct-garcia`) y contraseña de `root`.
-    - Plantilla: la que has descargado.
+    - Plantilla: la que has subido.
     - Discos: 8 GB.
     - CPU: 1 núcleo.
     - Memoria: 512 MB.
-    - Red: puente `vmbr0`, IPv4 estática `10.0.2.20/24` y puerta de enlace `10.0.2.2`. No uses DHCP. Si dejas la IP vacía, el contenedor no tendrá red.
+    - Red: puente `vmbr0` e IPv4 estática `192.168.100.20/24`. Si dejas la IP vacía, el contenedor no tendrá red.
 3. **Inicia el contenedor**, abre su consola e inicia sesión como `root`.
-4. **Instala un servidor web:** `apt update && apt install -y nginx`
-5. **Compruébalo:** desde la consola del nodo Proxmox ("Shell"), ejecuta `curl -I http://10.0.2.20`.
+4. **Crea una página web** con tu apellido y sírvela con el servidor web que incluye Python:
 
-La respuesta debe ser "200 OK". Con NAT el contenedor no es accesible desde el equipo anfitrión, pero también puedes abrir esa dirección en el navegador de la máquina virtual del ejercicio 2 si tiene escritorio.
+    ```
+    mkdir /srv/web
+    cd /srv/web
+    echo "<h1>Contenedor de TU-APELLIDO</h1>" > index.html
+    python3 -m http.server 80
+    ```
+
+5. **Compruébalo:** en el navegador del cliente Windows entra en `http://192.168.100.20`. Debe aparecer tu página. El servidor se detiene con Ctrl+C.
 
 !!! tip "Si la consola del navegador no carga"
     Entra al contenedor desde la pantalla de Proxmox en VirtualBox: inicia sesión como `root` y ejecuta `pct enter 101`, cambiando 101 por el número de tu contenedor. Se sale con `exit`.
@@ -156,7 +165,7 @@ La respuesta debe ser "200 OK". Con NAT el contenedor no es accesible desde el e
 
 - Captura de la pestaña "Confirmar" del asistente.
 - Captura de la consola del contenedor con la salida de `hostname`, `ip a` y `uname -r`.
-- Captura de la comprobación del servidor web en la que se vea la IP del contenedor: la respuesta "200 OK" de curl o la página de bienvenida de nginx en el navegador de la máquina virtual.
+- Captura del navegador del cliente Windows mostrando tu página, con la IP del contenedor visible en la barra de direcciones.
 
 **Responde:**
 
@@ -188,27 +197,14 @@ Ejecuta también `uname -r` en la consola del propio nodo Proxmox ("Shell") y an
 5. ¿Cuáles son sus principales desventajas?
 6. Pon un ejemplo de servicio para el que usarías una máquina virtual y otro para el que usarías un contenedor, y justifica la elección.
 
-## Ampliación opcional. Snapshots
-
-Un snapshot guarda el estado de una máquina o contenedor en un momento dado para poder volver a él. Compruébalo con tu contenedor:
-
-1. Con nginx funcionando, crea un snapshot desde la pestaña "Snapshots" del contenedor.
-2. Rompe algo a propósito: desinstala nginx con `apt remove -y nginx` y comprueba que el servidor web ya no responde.
-3. Restaura el snapshot ("Revertir") y comprueba que vuelve a funcionar.
-
-**Evidencias:** captura del snapshot creado, de la comprobación fallando y de la comprobación funcionando de nuevo tras restaurar.
-
-**Responde:** ¿en qué situaciones reales harías un snapshot antes de tocar un servidor?
-
 ## Criterios de calificación
 
 | Apartado | Puntos |
 | --- | --- |
 | Ejercicio 1. Instalación de Proxmox | 2 |
 | Ejercicio 2. Máquina virtual instalada y funcionando | 2,5 |
-| Ejercicio 3. Contenedor funcionando con el servidor web | 2,5 |
+| Ejercicio 3. Contenedor funcionando con la página web | 2,5 |
 | Ejercicio 4. Tabla comparativa y respuestas razonadas | 2 |
 | Presentación: portada, índice, capturas legibles y explicadas, ortografía | 1 |
-| Ampliación opcional | +1 |
 
 Un ejercicio sin sus evidencias, o con capturas en las que no aparezca tu apellido en el nombre del equipo, no puntúa.
