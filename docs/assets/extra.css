@@ -3,3 +3,7 @@
   display: block;
   margin: 1rem auto;
 }
+.md-typeset p,
+.md-typeset li {
+  text-align: justify;
+}
