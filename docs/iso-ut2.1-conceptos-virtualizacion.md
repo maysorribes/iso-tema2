@@ -152,12 +152,15 @@ El **hipervisor es un programa más** que se ejecuta dentro del sistema operativ
 
 ### Hyper-V
 
-- Hipervisor integrado en **Windows Server** 2008, 2008 R2, 2012 y 2016 (se activa como un **rol** desde el *Administrador del servidor*).
-- En funcionalidad y capacidades está al nivel de VMware y es superior a productos como VirtualBox.
-- La versión de Windows Server 2012 permite:
-  - Discos duros virtuales de hasta **64 TB**.
-  - Hasta **1 TB de RAM** por máquina virtual.
-  - Hasta **64 procesadores** por máquina virtual.
+* Hipervisor de tipo 1 de Microsoft, integrado en Windows Server desde la versión 2008 hasta la actual, Windows Server 2025 (se activa como un rol desde el Administrador del servidor).
+* También está disponible como característica opcional en las ediciones Pro, Enterprise y Education de Windows 10 y Windows 11.
+* En funcionalidad y capacidades compite con VMware vSphere y Proxmox VE, y está por encima de hipervisores de tipo 2 como VirtualBox.
+* Distingue dos tipos de máquina virtual: generación 1 (BIOS, hardware emulado) y generación 2 (UEFI, arranque seguro), que es la opción por defecto desde Windows Server 2025.
+* La versión de Windows Server 2025 permite, en máquinas de generación 2:
+    * Discos duros virtuales (VHDX) de hasta 64 TB.
+    * Hasta 240 TB de RAM por máquina virtual.
+    * Hasta 2048 procesadores virtuales por máquina virtual.
+* El host puede gestionar hasta 4 PB de RAM y 2048 procesadores lógicos.
 ![Rol Hyper-V en el Administrador del servidor](images/virtualizacion/hyperv-administrador.png){ width="550" }
 
 - Para saber más: [Hyper-V en Microsoft Learn](https://learn.microsoft.com/es-es/windows-server/virtualization/hyper-v/hyper-v-overview) · [Hyper-V en Wikipedia](https://es.wikipedia.org/wiki/Hyper-V)
