@@ -245,24 +245,25 @@ Son distintos **niveles de servicio** en el Cloud (hay más, pero estos son los 
 
 Los tres grandes proveedores:
 
-- **AWS:** Amazon Web Services
-- **Azure:** Microsoft Azure
-- **Google Cloud:** Google
+* **AWS**: Amazon Web Services
+* **Azure**: Microsoft Azure
+* **Google Cloud**: Google
 
-**Cuota de mercado en infraestructura cloud (Q4 2023)** — *Fuente: Canalys, febrero 2024*
+Cuota de mercado en infraestructura cloud (Q2 2026) — Fuente: Synergy Research Group, julio 2026
 
-| Proveedor | Cuota |
-|---|---|
-| AWS | 31 % |
-| Microsoft Azure | 26 % |
-| Google Cloud | 10 % |
-| Otros | 34 % |
-| **Gasto total** | **78,1 mil millones US$** |
-
-![Cuota de mercado cloud Q4 2023 (Canalys)](images/virtualizacion/cuota-mercado-cloud.png){ width="600" }
+| Proveedor       | Cuota                     |
+| --------------- | ------------------------- |
+| AWS             | 28 %                      |
+| Microsoft Azure | 20 %                      |
+| Google Cloud    | 15 %                      |
+| Otros           | 37 %                      |
+| **Gasto total** | **143,4 mil millones US$** |
 
 !!! note
-    Los tres principales suman el **66 %** del gasto total en cloud.
+    Los tres principales suman el 63 % del gasto total en cloud.
+
+![Cuota de mercado cloud Q2 2026 (Synergy Research)](images/virtualizacion/cuota-cloud-q2-2026.png)
+
 
 **¿Cuál elegir?**
 
