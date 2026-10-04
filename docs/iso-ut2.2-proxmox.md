@@ -89,49 +89,42 @@ En Proxmox podemos usar dos tecnologías de virtualización. Elegiremos una u ot
 
 ### KVM (Kernel-based Virtual Machine)
 
-- **Máquina virtual basada en el núcleo**: solución de **virtualización completa** con Linux.
-- Está formada por un módulo del kernel y herramientas en el espacio de usuario. Está incluido en Linux desde la versión **2.6.20**.
-- Ejecuta MV a partir de imágenes de disco con **sistemas operativos sin modificar** (Windows, Linux, BSD…).
-- Cada MV tiene su **propio hardware virtualizado**: tarjeta de red, discos duros, tarjeta gráfica, etc.
+* Máquina virtual basada en el núcleo: solución de virtualización completa con Linux.
+* Está formada por un módulo del kernel (incluido en Linux desde la versión 2.6.20) y por QEMU, que se ejecuta en el espacio de usuario y emula el hardware de la máquina.
+* Ejecuta MV a partir de imágenes de disco con sistemas operativos sin modificar (Windows, Linux, BSD…).
+* Cada MV tiene su propio hardware virtualizado: tarjeta de red, discos duros, tarjeta gráfica, etc.
+* Con los controladores VirtIO (paravirtualizados), el disco y la red de la MV alcanzan un rendimiento cercano al nativo.
 
 ### LXC (Linux Containers)
 
-- Tecnología de virtualización **a nivel de sistema operativo** para Linux.
-- Funciona como un módulo añadido al servidor físico y **usa directamente el hardware** (en el temario se relaciona con la paravirtualización).
-- Permite que un servidor ejecute **múltiples instancias aisladas** de Linux, llamadas **Servidores Privados Virtuales (VPS)** o **Entornos Virtuales (EV)**.
-- **No crea una máquina virtual**: crea un entorno virtual con su **propio espacio de procesos y de red**, pero **comparte el kernel** del anfitrión.
-- Es similar a **OpenVZ** y **Linux-VServer**, y a los **FreeBSD jails** o **Solaris Containers**.
-- Se basa en los **cgroups** del kernel de Linux (desde la versión **2.6.29**) y en los **espacios de nombres** (*namespaces*) para aislar procesos.
+* Tecnología de virtualización a nivel de sistema operativo para Linux.
+* No es un hipervisor ni emula hardware: usa funciones del propio kernel del anfitrión para aislar grupos de procesos.
+* Permite que un servidor ejecute múltiples instancias aisladas de Linux, llamadas contenedores (CT en Proxmox).
+* No crea una máquina virtual: crea un entorno con su propio espacio de procesos, de red y de ficheros, pero comparte el kernel del anfitrión.
+* Se basa en los espacios de nombres (namespaces), que aíslan lo que ve cada contenedor, y en los cgroups, que limitan los recursos que puede consumir (CPU, memoria, E/S).
+* Son contenedores de sistema: se comportan como un Linux completo, con sus propios servicios. Docker, en cambio, usa contenedores de aplicación, pensados para ejecutar un único servicio.
 
 ### Comparativa KVM vs LXC
 
-| | **KVM** | **LXC** |
-|---|---|---|
-| Tipo | Virtualización completa | Contenedores (nivel de SO) |
-| Kernel | Cada MV tiene el suyo | Comparten el del anfitrión |
-| Sistemas operativos | Cualquiera (Windows, Linux, BSD…) | Solo Linux |
-| Rendimiento | Muy bueno | Casi nativo (más ligero) |
-| Aislamiento | Total | Menor (comparten kernel) |
-| Requiere VT/SVM | Sí | No |
-| Uso típico | Servidores Windows, SO completos | Servicios Linux ligeros (web, DNS…) |
-
----
+|                         | KVM                               | LXC                                 |
+| ----------------------- | --------------------------------- | ----------------------------------- |
+| **Tipo**                | Virtualización completa           | Contenedores (nivel de SO)          |
+| **Kernel**              | Cada MV tiene el suyo             | Comparten el del anfitrión          |
+| **Sistemas operativos** | Cualquiera (Windows, Linux, BSD…) | Solo Linux                          |
+| **Rendimiento**         | Muy bueno                         | Casi nativo (más ligero)            |
+| **Arranque**            | Decenas de segundos               | Pocos segundos                      |
+| **Aislamiento**         | Total                             | Menor (comparten kernel)            |
+| **Requiere VT-x/AMD-V** | Sí                                | No                                  |
+| **Uso típico**          | Servidores Windows, SO completos  | Servicios Linux ligeros (web, DNS…) |
 
 ## Requisitos hardware
 
-Además de un procesador con **VT o SVM**, para sacar rendimiento a Proxmox se recomienda:
-
-| Componente | Recomendación |
-|---|---|
-| **Procesador** | Rápido y multinúcleo/multihilo (i7 o superior), en uno o varios sockets. |
-| **RAM** | **8 GB como mínimo**; cuanta más, mejor. |
-| **Discos** | Al menos **1** para el sistema (puede ir incluso en USB o CF), pero lo recomendable son **varios** para RAID por software o almacenamiento distribuido (Ceph, DRBD…). Mejor discos rápidos y una controladora con caché. Si usamos almacenamiento distribuido, al menos un **SSD** para cachés o MV rápidas. |
-| **Red** | Al menos **1** tarjeta, recomendable **4 o más** para crear distintos *bridges*, usar **STP** (Spanning Tree) y **bonding** (tarjetas redundadas) con varios caminos hacia el almacenamiento. |
-
-!!! tip "Servidores frente a equipos montados"
-    En la medida de lo posible, usa **servidores** en lugar de equipos montados por piezas. Sus componentes están pensados para funcionar juntos, durante mucho tiempo y con cargas altas. Un equipo "ensamblado" también es válido, pero requerirá más pruebas para dar con una combinación de hardware y drivers estable.
-
----
+| Componente     | Recomendación |
+| -------------- | ------------- |
+| **Procesador** | De 64 bits (Intel o AMD), multinúcleo y con Intel VT-x o AMD-V activado en la BIOS/UEFI. |
+| **RAM**        | 2 GB como mínimo para Proxmox, más la memoria que se asigne a las MV y contenedores. En la práctica, 16 GB o más. |
+| **Discos**     | SSD para el sistema y las MV. En producción, varios discos con redundancia (RAID, ZFS o Ceph). |
+| **Red**        | Al menos 1 tarjeta Gigabit. En producción, varias para separar tráfico y tener redundancia (bonding). |
 
 ## Instalación de Proxmox
 
