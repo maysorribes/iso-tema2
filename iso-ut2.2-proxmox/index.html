@@ -1,0 +1,1612 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del módulo Implantación de Sistemas Operativos (ASIR) - Tema 2">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut2.1-conceptos-virtualizacion/">
+      
+      
+        <link rel="next" href="../iso-ut2-practica1-proxmox/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Teoría - ISO · Tema 2 · Virtualización</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#22-proxmox-ve" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ISO · Tema 2 · Virtualización" class="md-header__button md-logo" aria-label="ISO · Tema 2 · Virtualización" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ISO · Tema 2 · Virtualización
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Teoría
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ISO · Tema 2 · Virtualización" class="md-nav__button md-logo" aria-label="ISO · Tema 2 · Virtualización" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ISO · Tema 2 · Virtualización
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Virtualización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2. Virtualización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.1-conceptos-virtualizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Conceptos básicos sobre virtualización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2 Proxmox VE
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2.2 Proxmox VE
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoría
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-la-virtualizacion-y-que-nos-ofrece" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es la virtualización y qué nos ofrece?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué es la virtualización y qué nos ofrece?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-hipervisor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El hipervisor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es Proxmox?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué es Proxmox?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-define-la-libertad-de-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué define la libertad de Proxmox?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-nos-ofrece-esta-solucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué nos ofrece esta solución?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-y-funcionamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos y funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tecnologias-kvm-y-lxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tecnologías: KVM y LXC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tecnologías: KVM y LXC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kvm-kernel-based-virtual-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KVM (Kernel-based Virtual Machine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lxc-linux-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LXC (Linux Containers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparativa-kvm-vs-lxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparativa KVM vs LXC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos hardware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalación de Proxmox
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actualizacion-a-la-ultima-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actualización a la última versión
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Actualización a la última versión">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cual-es-el-proceso-de-actualizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuál es el proceso de actualización?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cada-cuanto-tiempo-se-debe-actualizar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cada cuánto tiempo se debe actualizar?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuando-pasar-a-una-nueva-version-de-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuándo pasar a una nueva versión de Proxmox?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-hay-que-tener-en-cuenta-al-actualizar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué hay que tener en cuenta al actualizar?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actualizar-sin-suscripcion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actualizar sin suscripción
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-de-archivos-y-directorios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructura de archivos y directorios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2-practica1-proxmox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.3-aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3 Amazon Web Services (AWS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-la-virtualizacion-y-que-nos-ofrece" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es la virtualización y qué nos ofrece?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué es la virtualización y qué nos ofrece?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#el-hipervisor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El hipervisor
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es Proxmox?
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="¿Qué es Proxmox?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#que-define-la-libertad-de-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué define la libertad de Proxmox?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-nos-ofrece-esta-solucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué nos ofrece esta solución?
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conceptos-y-funcionamiento" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Conceptos y funcionamiento
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tecnologias-kvm-y-lxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tecnologías: KVM y LXC
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Tecnologías: KVM y LXC">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#kvm-kernel-based-virtual-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        KVM (Kernel-based Virtual Machine)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#lxc-linux-containers" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        LXC (Linux Containers)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#comparativa-kvm-vs-lxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Comparativa KVM vs LXC
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#requisitos-hardware" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Requisitos hardware
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalación de Proxmox
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#actualizacion-a-la-ultima-version" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actualización a la última versión
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Actualización a la última versión">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cual-es-el-proceso-de-actualizacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuál es el proceso de actualización?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cada-cuanto-tiempo-se-debe-actualizar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cada cuánto tiempo se debe actualizar?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cuando-pasar-a-una-nueva-version-de-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Cuándo pasar a una nueva versión de Proxmox?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#que-hay-que-tener-en-cuenta-al-actualizar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué hay que tener en cuenta al actualizar?
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#actualizar-sin-suscripcion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Actualizar sin suscripción
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#estructura-de-archivos-y-directorios" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Estructura de archivos y directorios
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#resumen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        📌 Resumen
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="22-proxmox-ve">2.2 Proxmox VE<a class="headerlink" href="#22-proxmox-ve" title="Permanent link">&para;</a></h1>
+<div class="admonition abstract">
+<p class="admonition-title">En este apartado</p>
+<ol>
+<li><a href="#que-es-la-virtualizacion-y-que-nos-ofrece">¿Qué es la virtualización y qué nos ofrece?</a></li>
+<li><a href="#que-es-proxmox">¿Qué es Proxmox?</a></li>
+<li><a href="#conceptos-y-funcionamiento">Conceptos y funcionamiento</a></li>
+<li><a href="#tecnologias-kvm-y-lxc">Tecnologías: KVM y LXC</a></li>
+<li><a href="#requisitos-hardware">Requisitos hardware</a></li>
+<li><a href="#instalacion-de-proxmox">Instalación de Proxmox</a></li>
+<li><a href="#actualizacion-a-la-ultima-version">Actualización a la última versión</a></li>
+<li><a href="#estructura-de-archivos-y-directorios">Estructura de archivos y directorios</a></li>
+</ol>
+</div>
+<hr />
+<h2 id="que-es-la-virtualizacion-y-que-nos-ofrece">¿Qué es la virtualización y qué nos ofrece?<a class="headerlink" href="#que-es-la-virtualizacion-y-que-nos-ofrece" title="Permanent link">&para;</a></h2>
+<p>La <strong>virtualización</strong> es una forma de dividir lógicamente los recursos de un servidor para ejecutar diferentes aplicaciones.</p>
+<p>Con el aumento de los costes de energía, mantener servidores físicos infrautilizados ya no es un lujo que podamos permitirnos. La virtualización nos permite <strong>hacer más con menos</strong>: ahorramos energía y dinero, y conseguimos un centro de datos virtual, limpio y sin fronteras geográficas.</p>
+<h3 id="el-hipervisor">El hipervisor<a class="headerlink" href="#el-hipervisor" title="Permanent link">&para;</a></h3>
+<p>Un <strong>hipervisor</strong> es una pieza de software, hardware o firmware que <strong>crea y administra máquinas virtuales</strong>. Es el elemento básico de toda virtualización.</p>
+<ul>
+<li>Actúa como <strong>puente</strong> entre el hardware físico y las máquinas virtuales, creando una <strong>capa de abstracción</strong>.</li>
+<li>La máquina virtual <strong>no ve el hardware directamente</strong>: ve la capa del hipervisor, que es siempre la misma independientemente del hardware sobre el que esté instalado.</li>
+<li>Gracias a esto, una máquina virtual completa se puede <strong>mover a otro servidor</strong>, incluso a gran distancia a través de Internet, y funcionará exactamente igual que en local.</li>
+</ul>
+<hr />
+<h2 id="que-es-proxmox">¿Qué es Proxmox?<a class="headerlink" href="#que-es-proxmox" title="Permanent link">&para;</a></h2>
+<div class="admonition info">
+<p class="admonition-title">Definición</p>
+<p><strong>Proxmox VE</strong> (<em>Virtual Environment</em>) es una potente plataforma de virtualización de nivel empresarial, <strong>100 % libre</strong> y sin límites de uso.</p>
+</div>
+<ul>
+<li>Ofrece soluciones similares a <strong>VMware vSphere</strong>, <strong>Microsoft Hyper-V</strong> o <strong>Citrix XenServer</strong> (la mayoría de pago), y en muchos escenarios incluye herramientas superiores.</li>
+<li>Integra de forma gratuita <strong>copias de seguridad</strong>, <strong>clúster</strong>, <strong>almacenamiento distribuido</strong> y muchas más soluciones.</li>
+<li>Se puede instalar en <strong>cualquier número de servidores físicos</strong>, sin límite de procesadores, sockets o conexiones de red, e integra almacenamiento <strong>NAS o SAN</strong> mediante Fibre Channel, iSCSI o NFS.</li>
+<li>Dispone de un servicio de <strong>actualizaciones con licencia comercial</strong> a un precio muy competitivo, recomendable para entornos de producción.</li>
+</ul>
+<p>En su web oficial se puede descargar una <strong>imagen ISO</strong> para crear un instalador en CD o USB. La instalación se hace en un equipo vacío y en unos <strong>15 minutos</strong> tenemos un servidor (<strong>nodo</strong>) listo para alojar máquinas virtuales o para unirse a un <strong>clúster</strong>.</p>
+<p>Este tipo de instalación se llama <strong>bare-metal</strong>: el instalador añade al equipo todo lo necesario y lo deja preparado para un entorno de producción. Es decir, Proxmox es un <strong>hipervisor de tipo I</strong>.</p>
+<h3 id="que-define-la-libertad-de-proxmox">¿Qué define la libertad de Proxmox?<a class="headerlink" href="#que-define-la-libertad-de-proxmox" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Usa <strong>Debian</strong> como sistema base y, para virtualizar, <strong>KVM</strong> (máquinas virtuales) y <strong>LXC</strong> (contenedores). Toda la base es libre, por eso el producto final también lo es.</li>
+<li>Su <strong>modelo de negocio</strong> se basa en formación, certificaciones, soporte y <strong>suscripciones</strong> para acceder a las últimas actualizaciones estables.</li>
+<li><strong>Sin suscripción</strong> también se puede usar sin problema: tendremos actualizaciones menos profundas (reparaciones y mejoras de paquetes pequeños), igual de fiables pero menores a nivel del hipervisor.</li>
+<li>Para <strong>producción</strong> se recomienda la suscripción comercial, ya que garantiza máxima estabilidad y las últimas actualizaciones, aunque no es obligatoria.</li>
+</ul>
+<h3 id="que-nos-ofrece-esta-solucion">¿Qué nos ofrece esta solución?<a class="headerlink" href="#que-nos-ofrece-esta-solucion" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Característica</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Administrador web HTML5</strong></td>
+<td>Interfaz web para configurar servidores, clúster, MV, backups, restauraciones y snapshots. No hace falta instalar ningún cliente; funciona incluso desde el móvil o la tablet.</td>
+</tr>
+<tr>
+<td><strong>Soporte multi-SO</strong></td>
+<td>Virtualiza la mayoría de sistemas operativos de 32/64 bits: Linux, Windows (XP, 7, 8, 10, Server 2003–2016…), Solaris, AIX, etc.</td>
+</tr>
+<tr>
+<td><strong>KVM</strong></td>
+<td>Virtualización completa sobre Linux. Requiere un procesador con soporte <strong>Intel VT</strong> o <strong>AMD SVM</strong>.</td>
+</tr>
+<tr>
+<td><strong>Contenedores LXC</strong></td>
+<td>Ejecuta sistemas Linux en espacios aislados, haciendo uso directo del hardware del servidor.</td>
+</tr>
+<tr>
+<td><strong>Backup &amp; Restore</strong></td>
+<td>Copias de seguridad inmediatas o programadas desde la web. Restaurar es tan fácil como elegir el backup.</td>
+</tr>
+<tr>
+<td><strong>Snapshot en vivo</strong></td>
+<td>Copias instantáneas de la MV (RAM, configuración y discos) para volver atrás en el tiempo.</td>
+</tr>
+<tr>
+<td><strong>Migración en caliente</strong></td>
+<td>Mover MV entre nodos <strong>sin apagarlas</strong>.</td>
+</tr>
+<tr>
+<td><strong>Clúster de alta disponibilidad</strong></td>
+<td>Reglas de HA, por ejemplo mover una MV a otro nodo con menos carga (<strong>balanceo de carga</strong>).</td>
+</tr>
+<tr>
+<td><strong>Administración centralizada</strong></td>
+<td>Un nodo actúa como <strong>orquestador</strong>, aunque cada nodo tiene su propia interfaz web.</td>
+</tr>
+<tr>
+<td><strong>Clúster sin SPOF</strong></td>
+<td>Sin punto único de fallo: si cae el orquestador, cualquier otro nodo tiene la información replicada y puede tomar el control.</td>
+</tr>
+<tr>
+<td><strong>Puentes de red</strong></td>
+<td>Las tarjetas físicas se gestionan mediante <em>bridges</em> compartidos con las MV. Se pueden agrupar varias tarjetas para balancear el tráfico.</td>
+</tr>
+<tr>
+<td><strong>NAS y SAN</strong></td>
+<td>Uso sencillo de almacenamiento por Fibre Channel, iSCSI o NFS.</td>
+</tr>
+<tr>
+<td><strong>Almacenamiento distribuido</strong></td>
+<td>Sistemas como <strong>Ceph</strong> o <strong>DRBD</strong> en cada nodo, con los datos replicados y tolerancia a fallos.</td>
+</tr>
+<tr>
+<td><strong>Autenticación</strong></td>
+<td>Cuentas propias de Proxmox o <strong>LDAP / Active Directory</strong>.</td>
+</tr>
+<tr>
+<td><strong>Firewall</strong></td>
+<td>Reglas para todas las MV o reglas específicas para una sola.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="conceptos-y-funcionamiento">Conceptos y funcionamiento<a class="headerlink" href="#conceptos-y-funcionamiento" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Requisitos mínimos:</strong> un procesador con <strong>VT (Intel) o SVM (AMD)</strong> y un equipo <strong>vacío</strong>. La instalación <em>bare-metal</em> borra el disco por completo, instala Debian con todo lo necesario y configura KVM.</li>
+<li><strong>Nodo:</strong> cada máquina con Proxmox se convierte en un <strong>nodo</strong>, que puede trabajar de forma <strong>independiente</strong> o formar parte de un <strong>clúster</strong>.</li>
+<li><strong>Clúster:</strong> agrupar nodos permite la <strong>administración centralizada</strong>, <strong>mover máquinas</strong> entre nodos, activar la <strong>alta disponibilidad</strong> y aprovechar todos los recursos físicos.</li>
+<li><strong>Almacenamiento compartido:</strong> para usar <strong>alta disponibilidad</strong> y <strong>migrar MV sin apagarlas</strong> es imprescindible un almacenamiento compartido (<strong>NAS o SAN</strong>) o distribuido (tipo <strong>Ceph</strong>). Hay muchas alternativas, tanto propietarias como libres (por ejemplo, FreeNAS/TrueNAS).</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Importante</p>
+<p>Sin almacenamiento compartido o distribuido <strong>no se pueden mover máquinas entre nodos</strong> ni usar alta disponibilidad.</p>
+</div>
+<hr />
+<h2 id="tecnologias-kvm-y-lxc">Tecnologías: KVM y LXC<a class="headerlink" href="#tecnologias-kvm-y-lxc" title="Permanent link">&para;</a></h2>
+<p>En Proxmox podemos usar dos tecnologías de virtualización. Elegiremos una u otra según nuestras necesidades.</p>
+<h3 id="kvm-kernel-based-virtual-machine">KVM (Kernel-based Virtual Machine)<a class="headerlink" href="#kvm-kernel-based-virtual-machine" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Máquina virtual basada en el núcleo: solución de virtualización completa con Linux.</li>
+<li>Está formada por un módulo del kernel (incluido en Linux desde la versión 2.6.20) y por QEMU, que se ejecuta en el espacio de usuario y emula el hardware de la máquina.</li>
+<li>Ejecuta MV a partir de imágenes de disco con sistemas operativos sin modificar (Windows, Linux, BSD…).</li>
+<li>Cada MV tiene su propio hardware virtualizado: tarjeta de red, discos duros, tarjeta gráfica, etc.</li>
+<li>Con los controladores VirtIO (paravirtualizados), el disco y la red de la MV alcanzan un rendimiento cercano al nativo.</li>
+</ul>
+<h3 id="lxc-linux-containers">LXC (Linux Containers)<a class="headerlink" href="#lxc-linux-containers" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Tecnología de virtualización a nivel de sistema operativo para Linux.</li>
+<li>No es un hipervisor ni emula hardware: usa funciones del propio kernel del anfitrión para aislar grupos de procesos.</li>
+<li>Permite que un servidor ejecute múltiples instancias aisladas de Linux, llamadas contenedores (CT en Proxmox).</li>
+<li>No crea una máquina virtual: crea un entorno con su propio espacio de procesos, de red y de ficheros, pero comparte el kernel del anfitrión.</li>
+<li>Se basa en los espacios de nombres (namespaces), que aíslan lo que ve cada contenedor, y en los cgroups, que limitan los recursos que puede consumir (CPU, memoria, E/S).</li>
+<li>Son contenedores de sistema: se comportan como un Linux completo, con sus propios servicios. Docker, en cambio, usa contenedores de aplicación, pensados para ejecutar un único servicio.</li>
+</ul>
+<h3 id="comparativa-kvm-vs-lxc">Comparativa KVM vs LXC<a class="headerlink" href="#comparativa-kvm-vs-lxc" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>KVM</th>
+<th>LXC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tipo</strong></td>
+<td>Virtualización completa</td>
+<td>Contenedores (nivel de SO)</td>
+</tr>
+<tr>
+<td><strong>Kernel</strong></td>
+<td>Cada MV tiene el suyo</td>
+<td>Comparten el del anfitrión</td>
+</tr>
+<tr>
+<td><strong>Sistemas operativos</strong></td>
+<td>Cualquiera (Windows, Linux, BSD…)</td>
+<td>Solo Linux</td>
+</tr>
+<tr>
+<td><strong>Rendimiento</strong></td>
+<td>Muy bueno</td>
+<td>Casi nativo (más ligero)</td>
+</tr>
+<tr>
+<td><strong>Arranque</strong></td>
+<td>Decenas de segundos</td>
+<td>Pocos segundos</td>
+</tr>
+<tr>
+<td><strong>Aislamiento</strong></td>
+<td>Total</td>
+<td>Menor (comparten kernel)</td>
+</tr>
+<tr>
+<td><strong>Requiere VT-x/AMD-V</strong></td>
+<td>Sí</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>Uso típico</strong></td>
+<td>Servidores Windows, SO completos</td>
+<td>Servicios Linux ligeros (web, DNS…)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="requisitos-hardware">Requisitos hardware<a class="headerlink" href="#requisitos-hardware" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Recomendación</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Procesador</strong></td>
+<td>De 64 bits (Intel o AMD), multinúcleo y con Intel VT-x o AMD-V activado en la BIOS/UEFI.</td>
+</tr>
+<tr>
+<td><strong>RAM</strong></td>
+<td>2 GB como mínimo para Proxmox, más la memoria que se asigne a las MV y contenedores. En la práctica, 16 GB o más.</td>
+</tr>
+<tr>
+<td><strong>Discos</strong></td>
+<td>SSD para el sistema y las MV. En producción, varios discos con redundancia (RAID, ZFS o Ceph).</td>
+</tr>
+<tr>
+<td><strong>Red</strong></td>
+<td>Al menos 1 tarjeta Gigabit. En producción, varias para separar tráfico y tener redundancia (bonding).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="instalacion-de-proxmox">Instalación de Proxmox<a class="headerlink" href="#instalacion-de-proxmox" title="Permanent link">&para;</a></h2>
+<p>Necesitamos un <strong>USB arrancable</strong> o un <strong>CD/DVD</strong> con la ISO de Proxmox.</p>
+<div class="admonition warning">
+<p class="admonition-title">BIOS</p>
+<p>En algunos servidores es necesario cambiar algún parámetro de la BIOS para que sea compatible con los drivers de la instalación <em>bare-metal</em> (y, por supuesto, activar la virtualización <strong>VT/SVM</strong>).</p>
+</div>
+<p><strong>1. Menú de arranque.</strong> Arrancamos desde el USB/DVD y elegimos <strong>Install Proxmox VE</strong>.</p>
+<p><img alt="Menú de arranque del instalador de Proxmox VE" src="../images/proxmox/01-menu-arranque.png" width="500" /></p>
+<p><strong>2. Licencia y disco de destino.</strong> Tras revisar el hardware, aceptamos la licencia y elegimos el <strong>disco</strong> donde se instalará el sistema.</p>
+<p><img alt="Selección del disco de destino" src="../images/proxmox/02-licencia-disco.png" width="600" /></p>
+<p>Con el botón <strong>Options</strong> del <em>Target Harddisk</em> podemos elegir cómo se instala:</p>
+<ul>
+<li>Si la controladora <strong>no soporta RAID</strong>, podemos hacer <strong>RAID por software con ZFS</strong> (heredado de Solaris) en distintos niveles (RAID 1, 5, 10…).</li>
+<li>También podemos instalar en un disco simple, una tarjeta SD, etc.</li>
+</ul>
+<div class="admonition tip">
+<p class="admonition-title">Recomendación: RAID 1 para el sistema</p>
+<p>Instalar el sistema en <strong>RAID 1</strong> (por hardware o por software) permite seguir funcionando si falla un disco, sustituirlo y continuar. Los discos son baratos: con <strong>70–128 GB</strong> en RAID 1 (SSD, SAS o SATA) basta para el sistema, y los discos más grandes se dejan para las MV o para el almacenamiento distribuido (Ceph, DRBD, GlusterFS…).</p>
+</div>
+<p><strong>3. País, zona horaria y teclado.</strong></p>
+<p><img alt="Selección de país, zona horaria y teclado" src="../images/proxmox/03-pais-zona-teclado.png" width="600" /></p>
+<p><strong>4. Contraseña de root y correo electrónico</strong> para las notificaciones.</p>
+<p><img alt="Contraseña de administrador y email" src="../images/proxmox/04-password-email.png" width="600" /></p>
+<p><strong>5. Configuración de red:</strong> interfaz de gestión, nombre del equipo (FQDN), IP, máscara, puerta de enlace y DNS.</p>
+<p><img alt="Configuración de la red de gestión" src="../images/proxmox/05-red.png" width="600" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Apunta bien la <strong>IP</strong> que pongas aquí: es la que usarás para entrar a la interfaz web.</p>
+</div>
+<p><strong>6. Instalación.</strong> El instalador copia y configura todo lo necesario.</p>
+<p><img alt="Proceso de instalación" src="../images/proxmox/06-instalando.png" width="600" /></p>
+<p><strong>7. Reinicio.</strong> Al terminar, reiniciamos el equipo.</p>
+<p><img alt="Instalación completada" src="../images/proxmox/07-instalacion-completada.png" width="600" /></p>
+<p><strong>8. GRUB.</strong> Al arrancar aparece el menú de GRUB. La opción resaltada es la que usaremos: si dejamos pasar el tiempo entra sola, o podemos pulsar <strong>Enter</strong>.</p>
+<p><img alt="Menú de GRUB de Proxmox" src="../images/proxmox/08-grub.png" width="500" /></p>
+<p><strong>9. Mensaje de bienvenida.</strong> Antes de iniciar sesión, la consola muestra la <strong>URL</strong> para acceder a la interfaz web, con la IP que configuramos en el paso 5.</p>
+<p><img alt="Mensaje con la URL de acceso web" src="../images/proxmox/09-url-acceso.png" width="500" /></p>
+<div class="admonition info">
+<p class="admonition-title">Acceso web</p>
+<p>La dirección tiene el formato <strong><code>https://IP:8006</code></strong> (por ejemplo <code>https://192.168.1.11:8006</code>). El navegador avisará de que el certificado no es de confianza; es normal, porque es autofirmado.</p>
+</div>
+<p><strong>10. Inicio de sesión.</strong> Entramos con el usuario <strong><code>root</code></strong> y la contraseña del paso 4. ¡Ya tenemos Proxmox funcionando!</p>
+<p><img alt="Inicio de sesión como root en la consola" src="../images/proxmox/10-login-root.png" width="500" /></p>
+<hr />
+<h2 id="actualizacion-a-la-ultima-version">Actualización a la última versión<a class="headerlink" href="#actualizacion-a-la-ultima-version" title="Permanent link">&para;</a></h2>
+<p>Actualizar Proxmox periódicamente nos asegura un software <strong>estable</strong>, <strong>sin fallos de seguridad</strong> y lo más <strong>optimizado</strong> posible.</p>
+<h3 id="cual-es-el-proceso-de-actualizacion">¿Cuál es el proceso de actualización?<a class="headerlink" href="#cual-es-el-proceso-de-actualizacion" title="Permanent link">&para;</a></h3>
+<p>Como Proxmox está instalado sobre <strong>Debian GNU/Linux</strong>, basta con ejecutar:</p>
+<div class="highlight"><pre><span></span><code>apt-get<span class="w"> </span>update
+apt-get<span class="w"> </span>dist-upgrade
+</code></pre></div>
+<p>Esto actualiza <strong>todo el sistema</strong>: nuevas versiones de Proxmox, el <strong>kernel</strong> (que es especial para Proxmox) y cualquier paquete pendiente. El sistema de paquetes de Debian resuelve las dependencias, así que podemos actualizar sin miedo a provocar fallos críticos.</p>
+<h3 id="cada-cuanto-tiempo-se-debe-actualizar">¿Cada cuánto tiempo se debe actualizar?<a class="headerlink" href="#cada-cuanto-tiempo-se-debe-actualizar" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Como <strong>mínimo una vez al mes</strong>, para aplicar las nuevas versiones de Proxmox.</li>
+<li>Además, <strong>siempre que se publique un fallo de seguridad grave</strong>.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Actualizaciones automáticas</p>
+<p>Aunque en entornos con muchos servidores es habitual automatizar las actualizaciones, <strong>no se recomienda</strong> en Proxmox: las actualizaciones (sobre todo las del kernel) pueden dar problemas.</p>
+</div>
+<h3 id="cuando-pasar-a-una-nueva-version-de-proxmox">¿Cuándo pasar a una nueva versión de Proxmox?<a class="headerlink" href="#cuando-pasar-a-una-nueva-version-de-proxmox" title="Permanent link">&para;</a></h3>
+<p>Cada cierto tiempo sale una <strong>versión mayor</strong>, con cambios importantes (nueva interfaz web, nueva API…).</p>
+<ul>
+<li><strong>No actualices en cuanto sale.</strong> Espera un tiempo prudencial a ver la experiencia de los primeros usuarios.</li>
+<li>Si quieres probar las novedades, instálala en un <strong>servidor de pruebas</strong>, nunca directamente en producción.</li>
+</ul>
+<h3 id="que-hay-que-tener-en-cuenta-al-actualizar">¿Qué hay que tener en cuenta al actualizar?<a class="headerlink" href="#que-hay-que-tener-en-cuenta-al-actualizar" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Especial cuidado con las <strong>actualizaciones del kernel</strong>: en el pasado han provocado fallos de arranque, un problema grave si gestionamos el servidor en remoto.</li>
+<li><strong>Reinicia</strong> el servidor tras actualizar el kernel, de forma <strong>controlada</strong> (por ejemplo, de noche, para no afectar a los usuarios).</li>
+<li>Si algo falla, podemos <strong>arrancar con el kernel anterior</strong>: los kernels antiguos no se borran, se quedan "aparcados".</li>
+</ul>
+<h3 id="actualizar-sin-suscripcion">Actualizar sin suscripción<a class="headerlink" href="#actualizar-sin-suscripcion" title="Permanent link">&para;</a></h3>
+<p>Si no tenemos soporte comercial, hay que cambiar los repositorios para evitar los errores de <em>"no subscription"</em>:</p>
+<ol>
+<li>
+<p>En <code>/etc/apt/sources.list.d/pve-enterprise.list</code>, <strong>comentamos</strong> la línea del repositorio de pago:</p>
+<div class="highlight"><pre><span></span><code>#deb https://enterprise.proxmox.com/debian/pve stretch pve-enterprise
+</code></pre></div>
+</li>
+<li>
+<p>En <code>/etc/apt/sources.list.d/pve-no-subscription.list</code>, <strong>quitamos la <code>#</code></strong> de la línea del repositorio gratuito:</p>
+<div class="highlight"><pre><span></span><code>deb http://download.proxmox.com/debian/pve stretch pve-no-subscription
+</code></pre></div>
+</li>
+<li>
+<p>Descargamos las claves públicas del repositorio:</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>-O-<span class="w"> </span>http://download.proxmox.com/debian/key.asc<span class="w"> </span><span class="p">|</span><span class="w"> </span>apt-key<span class="w"> </span>add<span class="w"> </span>-
+</code></pre></div>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Nota actualizada</p>
+<p>Los ejemplos anteriores son de <strong>Proxmox VE 5</strong> (Debian <em>stretch</em>). En versiones actuales cambia el nombre de la versión de Debian (por ejemplo, <em>bookworm</em> en Proxmox VE 8) y el formato de algunos archivos, y <code>apt-key</code> está obsoleto. La forma más sencilla hoy es ir a <strong>Nodo → Updates → Repositories</strong> en la interfaz web, desactivar el repositorio <em>enterprise</em> y añadir el <em>No-Subscription</em> con el botón <strong>Add</strong>.</p>
+</div>
+<hr />
+<h2 id="estructura-de-archivos-y-directorios">Estructura de archivos y directorios<a class="headerlink" href="#estructura-de-archivos-y-directorios" title="Permanent link">&para;</a></h2>
+<p>Tras la instalación, Proxmox crea una estructura de directorios que conviene conocer para gestionar el sistema.</p>
+<table>
+<thead>
+<tr>
+<th>Directorio</th>
+<th>Uso</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>/etc/pve</code></td>
+<td>Configuración del sistema de virtualización</td>
+</tr>
+<tr>
+<td><code>/var/log/pve*</code></td>
+<td>Archivos de log</td>
+</tr>
+<tr>
+<td><code>/usr/share/doc/pve-*</code></td>
+<td>Documentación sobre Proxmox</td>
+</tr>
+<tr>
+<td><code>/usr/share/pve-manager</code></td>
+<td>Archivos de la interfaz web</td>
+</tr>
+<tr>
+<td><code>/var/lib/rrdcached/</code></td>
+<td>Información MRTG para las gráficas</td>
+</tr>
+<tr>
+<td><code>/usr/share/qemu-server/</code></td>
+<td>Configuraciones de USB para KVM</td>
+</tr>
+</tbody>
+</table>
+<details class="note">
+<summary><code>/etc/pve</code> — Configuración</summary>
+<p>Contiene los archivos de configuración del host: la de la interfaz web (usuarios, permisos…) y la de cada máquina virtual o contenedor.</p>
+<table>
+<thead>
+<tr>
+<th>Archivo / directorio</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>datacenter.cfg</code></td>
+<td>Configuración general del nodo / centro de datos</td>
+</tr>
+<tr>
+<td><code>nodes/</code></td>
+<td>Directorio con los nodos del clúster</td>
+</tr>
+<tr>
+<td><code>local</code></td>
+<td>Enlace al directorio del nodo local</td>
+</tr>
+<tr>
+<td><code>qemu-server</code></td>
+<td>Enlace a los archivos de configuración de las MV <strong>KVM</strong></td>
+</tr>
+<tr>
+<td><code>lxc</code></td>
+<td>Enlace a los archivos de configuración de los contenedores <strong>LXC</strong></td>
+</tr>
+<tr>
+<td><code>storage.cfg</code></td>
+<td>Almacenamientos creados</td>
+</tr>
+<tr>
+<td><code>user.cfg</code></td>
+<td>Usuarios autorizados en la web</td>
+</tr>
+<tr>
+<td><code>.version</code></td>
+<td>Versiones de modificación de los archivos de configuración</td>
+</tr>
+<tr>
+<td><code>vzdump.cron</code></td>
+<td>Crontab con la programación de las copias de seguridad</td>
+</tr>
+</tbody>
+</table>
+</details>
+<details class="note">
+<summary><code>/var/log/pve*</code> — Logs</summary>
+<p>Todos los registros del servidor están en <code>/var/log</code>:</p>
+<ul>
+<li><code>pveam.log</code>: registro general, primer sitio donde buscar fallos.</li>
+<li><code>pve-firewall.log*</code>: estado y mensajes importantes del cortafuegos integrado.</li>
+<li><code>pveproxy/</code>: accesos al proxy de Proxmox, es decir, a la interfaz web.</li>
+<li><code>pve/</code>: registros de las tareas realizadas por el sistema.</li>
+</ul>
+</details>
+<details class="note">
+<summary><code>/usr/share/doc/*pve*</code> — Documentación</summary>
+<p>Documentación de los paquetes instalados. Suele incluir los últimos cambios, detalles técnicos y ejemplos que aún no están en el manual o en las páginas <code>man</code>.</p>
+</details>
+<details class="note">
+<summary><code>/usr/share/pve-manager</code> — Interfaz web</summary>
+<p>Archivos de la interfaz web de Proxmox. Se pueden modificar, pero <strong>no se recomienda</strong>: las actualizaciones pueden sobrescribirlos sin previo aviso.</p>
+</details>
+<details class="note">
+<summary><code>/var/lib/rrdcached/</code> — Gráficas</summary>
+<p>Estadísticas de uso del servidor, las MV, los volúmenes, etc. (información MRTG), con las que se generan las gráficas de rendimiento.</p>
+</details>
+<details class="note">
+<summary><code>/usr/share/qemu-server</code> — USB en KVM</summary>
+<p>Archivos de configuración para dispositivos USB en KVM.</p>
+</details>
+<hr />
+<h2 id="resumen">📌 Resumen<a class="headerlink" href="#resumen" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Término</th>
+<th>Definición</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Proxmox VE</strong></td>
+<td>Plataforma de virtualización libre, tipo I (<em>bare-metal</em>), basada en Debian.</td>
+</tr>
+<tr>
+<td><strong>Nodo</strong></td>
+<td>Cada servidor físico con Proxmox instalado.</td>
+</tr>
+<tr>
+<td><strong>Clúster</strong></td>
+<td>Grupo de nodos con administración centralizada, migración de MV y alta disponibilidad.</td>
+</tr>
+<tr>
+<td><strong>KVM</strong></td>
+<td>Virtualización completa: cada MV tiene su propio kernel y hardware virtual.</td>
+</tr>
+<tr>
+<td><strong>LXC</strong></td>
+<td>Contenedores Linux que comparten el kernel del anfitrión.</td>
+</tr>
+<tr>
+<td><strong>HA</strong></td>
+<td>Alta disponibilidad: las MV se mueven a otro nodo si uno falla. Requiere almacenamiento compartido.</td>
+</tr>
+<tr>
+<td><strong>Ceph / DRBD</strong></td>
+<td>Sistemas de almacenamiento distribuido y replicado entre nodos.</td>
+</tr>
+<tr>
+<td><strong>Puerto 8006</strong></td>
+<td>Puerto de la interfaz web: <code>https://IP:8006</code>.</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

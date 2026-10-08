@@ -1,0 +1,1141 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del módulo Implantación de Sistemas Operativos (ASIR) - Tema 2">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut2.2-proxmox/">
+      
+      
+        <link rel="next" href="../iso-ut2.3-aws/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Práctica 1 - ISO · Tema 2 · Virtualización</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#practica-1-proxmox" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ISO · Tema 2 · Virtualización" class="md-header__button md-logo" aria-label="ISO · Tema 2 · Virtualización" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ISO · Tema 2 · Virtualización
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Práctica 1
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ISO · Tema 2 · Virtualización" class="md-nav__button md-logo" aria-label="ISO · Tema 2 · Virtualización" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ISO · Tema 2 · Virtualización
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Virtualización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2. Virtualización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.1-conceptos-virtualizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Conceptos básicos sobre virtualización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2 Proxmox VE
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2.2 Proxmox VE
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.2-proxmox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-y-entrega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos y entrega
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparacion-el-escenario-en-virtualbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparación: el escenario en VirtualBox
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparación: el escenario en VirtualBox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maquina-de-virtualbox-para-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Máquina de VirtualBox para Proxmox
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cliente-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cliente Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-1-instalacion-de-proxmox-ve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 1. Instalación de Proxmox VE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-2-crear-y-usar-una-maquina-virtual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 2. Crear y usar una máquina virtual
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-3-crear-y-usar-un-contenedor-lxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 3. Crear y usar un contenedor LXC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-4-maquinas-virtuales-frente-a-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 4. Máquinas virtuales frente a contenedores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criterios-de-calificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Criterios de calificación
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.3-aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3 Amazon Web Services (AWS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objetivos-y-entrega" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Objetivos y entrega
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#preparacion-el-escenario-en-virtualbox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Preparación: el escenario en VirtualBox
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Preparación: el escenario en VirtualBox">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#maquina-de-virtualbox-para-proxmox" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Máquina de VirtualBox para Proxmox
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#cliente-windows" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Cliente Windows
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-1-instalacion-de-proxmox-ve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 1. Instalación de Proxmox VE
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-2-crear-y-usar-una-maquina-virtual" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 2. Crear y usar una máquina virtual
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-3-crear-y-usar-un-contenedor-lxc" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 3. Crear y usar un contenedor LXC
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ejercicio-4-maquinas-virtuales-frente-a-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ejercicio 4. Máquinas virtuales frente a contenedores
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#criterios-de-calificacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Criterios de calificación
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="practica-1-proxmox">Práctica 1. Proxmox<a class="headerlink" href="#practica-1-proxmox" title="Permanent link">&para;</a></h1>
+<p><a class="md-button md-button--primary" href="../assets/UT2_Practica1_Proxmox.pdf">Descargar la práctica en PDF</a></p>
+<h2 id="objetivos-y-entrega">Objetivos y entrega<a class="headerlink" href="#objetivos-y-entrega" title="Permanent link">&para;</a></h2>
+<p>En esta práctica instalarás Proxmox VE, crearás una máquina virtual y un contenedor LXC, los pondrás en marcha y compararás cómo se comportan.</p>
+<p>Al terminar deberías ser capaz de:</p>
+<ul>
+<li>Instalar un hipervisor de tipo 1 y administrarlo desde su consola web.</li>
+<li>Crear y usar una máquina virtual (KVM) y un contenedor (LXC).</li>
+<li>Explicar, con datos medidos por ti, en qué se diferencian y cuándo usar cada uno.</li>
+</ul>
+<p><strong>Qué se entrega:</strong> una memoria en PDF con portada, índice y un apartado por ejercicio. Cada paso importante lleva una captura de pantalla con una frase que explique qué se hace y por qué. No basta con "lo dejamos por defecto": si dejas un valor por defecto, indica qué significa.</p>
+<p><strong>Capturas identificables:</strong> el nombre del servidor Proxmox, de la máquina virtual y del contenedor deben incluir tu apellido (por ejemplo <code>pve-garcia</code>, <code>vm-garcia</code>, <code>ct-garcia</code>), de modo que se vea en las capturas.</p>
+<h2 id="preparacion-el-escenario-en-virtualbox">Preparación: el escenario en VirtualBox<a class="headerlink" href="#preparacion-el-escenario-en-virtualbox" title="Permanent link">&para;</a></h2>
+<p>Trabajarás con dos máquinas de VirtualBox conectadas a la misma red interna: el servidor Proxmox y un cliente Windows desde el que lo administrarás con el navegador. Dentro de Proxmox crearás además una máquina virtual y un contenedor, que estarán en esa misma red. La red interna no tiene salida a Internet, así que todo el material (ISO y plantilla) se te facilitará en clase.</p>
+<table>
+<thead>
+<tr>
+<th>Equipo</th>
+<th>Dirección IP</th>
+<th>Dónde se ejecuta</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Servidor Proxmox</td>
+<td><code>192.168.100.2/24</code></td>
+<td>Máquina de VirtualBox</td>
+</tr>
+<tr>
+<td>Cliente Windows</td>
+<td><code>192.168.100.3/24</code></td>
+<td>Máquina de VirtualBox</td>
+</tr>
+<tr>
+<td>Contenedor LXC</td>
+<td><code>192.168.100.20/24</code></td>
+<td>Dentro de Proxmox</td>
+</tr>
+<tr>
+<td>Máquina virtual</td>
+<td><code>192.168.100.30/24</code></td>
+<td>Dentro de Proxmox</td>
+</tr>
+</tbody>
+</table>
+<h3 id="maquina-de-virtualbox-para-proxmox">Máquina de VirtualBox para Proxmox<a class="headerlink" href="#maquina-de-virtualbox-para-proxmox" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Ajuste</th>
+<th>Valor</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tipo</td>
+<td>Linux, Debian (64-bit)</td>
+</tr>
+<tr>
+<td>Memoria</td>
+<td>8 GB recomendado (4 GB como mínimo)</td>
+</tr>
+<tr>
+<td>Procesadores</td>
+<td>2 o más</td>
+</tr>
+<tr>
+<td>Virtualización anidada</td>
+<td>Sistema → Procesador → marcar "Habilitar VT-x/AMD-V anidado"</td>
+</tr>
+<tr>
+<td>Disco</td>
+<td>50 GB, reservado dinámicamente</td>
+</tr>
+<tr>
+<td>Red</td>
+<td>Red interna, con nombre <code>intnet</code>. En Avanzadas, modo promiscuo: "Permitir todo"</td>
+</tr>
+</tbody>
+</table>
+<p>Dos ajustes son imprescindibles:</p>
+<ul>
+<li><strong>VT-x/AMD-V anidado.</strong> Proxmox se ejecuta dentro de VirtualBox y a su vez ejecuta máquinas: es virtualización anidada. Sin esta opción, las máquinas virtuales no arrancan dentro de Proxmox y aparece el error "KVM virtualisation configured, but not available".</li>
+<li><strong>Modo promiscuo "Permitir todo".</strong> Sin él, el cliente Windows puede comunicarse con Proxmox, pero no con la máquina virtual ni con el contenedor que crees dentro.</li>
+</ul>
+<div class="admonition warning">
+<p class="admonition-title">Si la casilla de VT-x/AMD-V anidado aparece en gris</p>
+<p>Si no se puede marcar, actívala por comando. Apaga del todo la máquina, abre el Símbolo del sistema de Windows y ejecuta, poniendo entre comillas el nombre exacto de tu máquina:</p>
+<div class="highlight"><pre><span></span><code>cd "C:\Program Files\Oracle\VirtualBox"
+VBoxManage modifyvm "Proxmox" --nested-hw-virt on
+</code></pre></div>
+<p>Al volver a abrir la configuración, la casilla aparecerá marcada.</p>
+</div>
+<h3 id="cliente-windows">Cliente Windows<a class="headerlink" href="#cliente-windows" title="Permanent link">&para;</a></h3>
+<p>Usa una máquina virtual de Windows que ya tengas. En su configuración de red, conéctala también a la red interna <code>intnet</code> y, dentro de Windows, asígnale la dirección <code>192.168.100.3</code> con máscara <code>255.255.255.0</code>.</p>
+<h2 id="ejercicio-1-instalacion-de-proxmox-ve">Ejercicio 1. Instalación de Proxmox VE<a class="headerlink" href="#ejercicio-1-instalacion-de-proxmox-ve" title="Permanent link">&para;</a></h2>
+<p>Instala Proxmox VE en la máquina de VirtualBox y accede a su consola web desde el cliente Windows.</p>
+<ol>
+<li>Arranca la máquina con la ISO de Proxmox y elige la instalación gráfica.</li>
+<li>Selecciona el disco de destino.</li>
+<li>Indica país, zona horaria (Europe/Madrid) y teclado.</li>
+<li>Define la contraseña de <code>root</code> y un correo.</li>
+<li>Configura la red de gestión: nombre del servidor con tu apellido (por ejemplo <code>pve-garcia.local</code>), dirección <code>192.168.100.2/24</code>, puerta de enlace <code>192.168.100.1</code> y DNS <code>192.168.100.1</code>. La puerta de enlace y el DNS no existen en esta red, pero el instalador obliga a rellenarlos.</li>
+<li>Revisa el resumen e instala. Al reiniciar, retira la ISO.</li>
+<li>En el cliente Windows, abre el Símbolo del sistema y comprueba la conexión con <code>ping 192.168.100.2</code>.</li>
+<li>En el navegador del cliente Windows entra en <code>https://192.168.100.2:8006</code> con el usuario <code>root</code>. El aviso del certificado y el de "No valid subscription" son normales: acepta y continúa.</li>
+</ol>
+<p><strong>Evidencias:</strong></p>
+<ul>
+<li>Captura del resumen de la instalación.</li>
+<li>Captura del ping desde el cliente Windows a Proxmox.</li>
+<li>Captura de la consola web con la sesión iniciada, donde se vea el nombre de tu nodo.</li>
+</ul>
+<p><strong>Responde:</strong></p>
+<ul>
+<li>¿Qué versión de Proxmox y qué versión del kernel has instalado? (Lo verás en el resumen del nodo.)</li>
+<li>¿Por qué Proxmox se administra desde un navegador y no tiene escritorio propio?</li>
+</ul>
+<h2 id="ejercicio-2-crear-y-usar-una-maquina-virtual">Ejercicio 2. Crear y usar una máquina virtual<a class="headerlink" href="#ejercicio-2-crear-y-usar-una-maquina-virtual" title="Permanent link">&para;</a></h2>
+<p>Crea en Proxmox una máquina virtual con una distribución de Linux, completa la instalación y comprueba que funciona.</p>
+<p>Puedes elegir la distribución que quieras, con o sin entorno gráfico. Si la quieres con escritorio, elige uno ligero (Xubuntu, Lubuntu o Debian con XFCE), porque al estar anidada irá más lenta de lo normal.</p>
+<p><strong>Guías de apoyo (Somebooks):</strong> <a href="http://somebooks.es/almacenar-una-imagen-iso-proxmox-ve/">Almacenar una imagen ISO en Proxmox VE</a> y <a href="http://somebooks.es/crear-una-maquina-virtual-proxmox-ve/">Crear una máquina virtual en Proxmox VE</a>. Están hechas con una versión anterior de Proxmox, así que alguna pantalla puede no coincidir exactamente con la tuya.</p>
+<ol>
+<li><strong>Pon la ISO de Linux a disposición de Proxmox.</strong> Con la máquina de Proxmox encendida, en el menú de su ventana de VirtualBox elige Dispositivos → Unidades ópticas → Seleccionar imagen de disco, y escoge la ISO de Linux. Proxmox la verá como un CD insertado en su lector.</li>
+<li><strong>En la consola web, pulsa "Crear VM"</strong> y recorre el asistente:<ul>
+<li>General: nombre con tu apellido (por ejemplo <code>vm-garcia</code>).</li>
+<li>SO: marca "Usar lector físico de CD/DVD".</li>
+<li>Sistema: valores por defecto.</li>
+<li>Discos: 20 GB en <code>local-lvm</code>.</li>
+<li>CPU: 2 núcleos.</li>
+<li>Memoria: 2048 MB (4096 MB si lleva escritorio y tu equipo lo permite).</li>
+<li>Red: puente <code>vmbr0</code>, modelo VirtIO.</li>
+</ul>
+</li>
+<li><strong>Inicia la máquina</strong> y abre su consola desde Proxmox.</li>
+<li><strong>Completa la instalación</strong> del sistema operativo hasta poder iniciar sesión. No hay Internet, así que omite las actualizaciones durante la instalación.</li>
+<li><strong>Configura la red</strong> del sistema instalado con la dirección estática <code>192.168.100.30</code>, máscara <code>255.255.255.0</code>.</li>
+<li><strong>Comprueba la conexión</strong> desde el cliente Windows con <code>ping 192.168.100.30</code>.</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Otra forma de cargar la ISO</p>
+<p>Si prefieres tenerla en el almacén de Proxmox, con la ISO insertada como en el paso 1 ejecuta en la consola del nodo ("Shell"):</p>
+<div class="highlight"><pre><span></span><code>dd if=/dev/sr0 of=/var/lib/vz/template/iso/linux.iso bs=4M
+</code></pre></div>
+<p>Aparecerá en <code>local</code> → "Imágenes ISO" y podrás elegirla en la pestaña SO del asistente.</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Si la máquina no arranca o Proxmox deja de responder al iniciarla</p>
+<p>Es probable que Windows tenga Hyper-V activo. Se reconoce porque, en la ventana de VirtualBox de Proxmox, aparece abajo a la derecha el icono de una tortuga verde.</p>
+<p>En ese caso, en la máquina virtual entra en "Options", pon "KVM hardware virtualization" en "No" y, en "Hardware" → "Processors", elige el tipo <code>qemu64</code>. La máquina funcionará emulada y muy lenta, así que usa una distribución sin entorno gráfico.</p>
+<p>Pulsa "Start" una sola vez y espera; si lo pulsas varias veces, o pulsas "Shutdown" mientras arranca, aparecerá un error de bloqueo.</p>
+</div>
+<p><strong>Evidencias:</strong></p>
+<ul>
+<li>Captura de la pestaña "Confirmar" del asistente con el resumen de la configuración.</li>
+<li>Captura de un terminal dentro de la máquina ya instalada con la salida de <code>hostname</code>, <code>ip a</code> y <code>uname -r</code>.</li>
+<li>Captura del ping desde el cliente Windows a la máquina virtual.</li>
+<li>Captura del "Resumen" de la máquina en Proxmox mientras está en marcha.</li>
+</ul>
+<p><strong>Responde:</strong></p>
+<ul>
+<li>¿Qué diferencia hay entre los almacenamientos <code>local</code> y <code>local-lvm</code>? ¿Qué se guarda en cada uno?</li>
+<li>¿Qué es <code>vmbr0</code> y para qué sirve?</li>
+<li>El modelo de la tarjeta de red es "VirtIO (paravirtualizado)". ¿Qué ventaja tiene frente a emular una tarjeta real?</li>
+</ul>
+<h2 id="ejercicio-3-crear-y-usar-un-contenedor-lxc">Ejercicio 3. Crear y usar un contenedor LXC<a class="headerlink" href="#ejercicio-3-crear-y-usar-un-contenedor-lxc" title="Permanent link">&para;</a></h2>
+<p>Crea un contenedor LXC a partir de una plantilla, ponlo en marcha y sirve desde él una página web que se vea en el cliente Windows.</p>
+<p><strong>Guía de apoyo (Somebooks):</strong> <a href="http://somebooks.es/crear-contenedores-linux-partir-plantillas-proxmox-ve/">Crear contenedores Linux a partir de plantillas en Proxmox VE</a>. Está hecha con una versión anterior de Proxmox, así que alguna pantalla puede no coincidir exactamente con la tuya.</p>
+<ol>
+<li><strong>Sube la plantilla.</strong> Se te facilitará una plantilla de Ubuntu. Cópiala al cliente Windows (por ejemplo, con una carpeta compartida de VirtualBox) y, en la consola web, entra en el almacenamiento <code>local</code> → "Plantillas de CT" y pulsa "Cargar".</li>
+<li><strong>Pulsa "Crear CT"</strong> y recorre el asistente:<ul>
+<li>General: nombre con tu apellido (por ejemplo <code>ct-garcia</code>) y contraseña de <code>root</code>.</li>
+<li>Plantilla: la que has subido.</li>
+<li>Discos: 8 GB.</li>
+<li>CPU: 1 núcleo.</li>
+<li>Memoria: 512 MB.</li>
+<li>Red: puente <code>vmbr0</code> e IPv4 estática <code>192.168.100.20/24</code>. Si dejas la IP vacía, el contenedor no tendrá red.</li>
+</ul>
+</li>
+<li><strong>Inicia el contenedor</strong>, abre su consola e inicia sesión como <code>root</code>.</li>
+<li>
+<p><strong>Crea una página web</strong> con tu apellido y sírvela con el servidor web que incluye Python:</p>
+<div class="highlight"><pre><span></span><code>mkdir /srv/web
+cd /srv/web
+echo "&lt;h1&gt;Contenedor de TU-APELLIDO&lt;/h1&gt;" &gt; index.html
+python3 -m http.server 80
+</code></pre></div>
+</li>
+<li>
+<p><strong>Compruébalo:</strong> en el navegador del cliente Windows entra en <code>http://192.168.100.20</code>. Debe aparecer tu página. El servidor se detiene con Ctrl+C.</p>
+</li>
+</ol>
+<div class="admonition tip">
+<p class="admonition-title">Si la consola del navegador no carga</p>
+<p>Entra al contenedor desde la pantalla de Proxmox en VirtualBox: inicia sesión como <code>root</code> y ejecuta <code>pct enter 101</code>, cambiando 101 por el número de tu contenedor. Se sale con <code>exit</code>.</p>
+</div>
+<p><strong>Evidencias:</strong></p>
+<ul>
+<li>Captura de la pestaña "Confirmar" del asistente.</li>
+<li>Captura de la consola del contenedor con la salida de <code>hostname</code>, <code>ip a</code> y <code>uname -r</code>.</li>
+<li>Captura del navegador del cliente Windows mostrando tu página, con la IP del contenedor visible en la barra de direcciones.</li>
+</ul>
+<p><strong>Responde:</strong></p>
+<ul>
+<li>¿Qué significa que el contenedor sea "sin privilegios"?</li>
+<li>Al crear la máquina virtual usaste una ISO y tuviste que instalar el sistema. Aquí has usado una plantilla y no has instalado nada. ¿Por qué?</li>
+</ul>
+<h2 id="ejercicio-4-maquinas-virtuales-frente-a-contenedores">Ejercicio 4. Máquinas virtuales frente a contenedores<a class="headerlink" href="#ejercicio-4-maquinas-virtuales-frente-a-contenedores" title="Permanent link">&para;</a></h2>
+<p>Compara, con datos medidos por ti, la máquina virtual del ejercicio 2 y el contenedor del ejercicio 3, y saca conclusiones.</p>
+<p>Copia esta tabla en tu memoria y complétala. La RAM y el disco los verás en el "Resumen" de cada uno en Proxmox, con ambos en marcha y sin hacer nada.</p>
+<table>
+<thead>
+<tr>
+<th>Medida</th>
+<th>Máquina virtual</th>
+<th>Contenedor LXC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tiempo desde que pulsas "Iniciar" hasta poder iniciar sesión</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Memoria RAM en uso en reposo</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Espacio de disco ocupado</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Versión del kernel (<code>uname -r</code>)</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Tiempo que tardó en estar listo para usar desde que lo creaste</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Ejecuta también <code>uname -r</code> en la consola del propio nodo Proxmox ("Shell") y anótalo.</p>
+<p><strong>Responde a partir de lo que has observado:</strong></p>
+<ol>
+<li>¿Qué es un contenedor LXC?</li>
+<li>Compara los tres resultados de <code>uname -r</code> (nodo, máquina virtual y contenedor). ¿Cuáles coinciden y por qué?</li>
+<li>¿Qué sistemas operativos se pueden usar en un contenedor LXC y cuáles no? Relaciónalo con la respuesta anterior.</li>
+<li>¿Cuáles son las principales ventajas de los contenedores frente a las máquinas virtuales? Apoya la respuesta en los datos de tu tabla.</li>
+<li>¿Cuáles son sus principales desventajas?</li>
+<li>Pon un ejemplo de servicio para el que usarías una máquina virtual y otro para el que usarías un contenedor, y justifica la elección.</li>
+</ol>
+<h2 id="criterios-de-calificacion">Criterios de calificación<a class="headerlink" href="#criterios-de-calificacion" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Apartado</th>
+<th>Puntos</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ejercicio 1. Instalación de Proxmox</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Ejercicio 2. Máquina virtual instalada y funcionando</td>
+<td>2,5</td>
+</tr>
+<tr>
+<td>Ejercicio 3. Contenedor funcionando con la página web</td>
+<td>2,5</td>
+</tr>
+<tr>
+<td>Ejercicio 4. Tabla comparativa y respuestas razonadas</td>
+<td>2</td>
+</tr>
+<tr>
+<td>Presentación: portada, índice, capturas legibles y explicadas, ortografía</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Un ejercicio sin sus evidencias, o con capturas en las que no aparezca tu apellido en el nombre del equipo, no puntúa.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>

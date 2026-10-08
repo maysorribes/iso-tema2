@@ -1,0 +1,9 @@
+/* Centrar las imágenes del contenido */
+.md-typeset p > img:only-child {
+  display: block;
+  margin: 1rem auto;
+}
+.md-typeset p,
+.md-typeset li {
+  text-align: justify;
+}
