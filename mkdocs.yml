@@ -30,10 +30,6 @@ markdown_extensions:
   - toc:
       permalink: true
 
-# Páginas preparadas pero NO publicadas todavía
-exclude_docs: |
-  iso-ut2.3-aws.md
-
 nav:
   - Inicio: index.md
   - UT2. Virtualización:
@@ -41,8 +37,7 @@ nav:
       - "2.2 Proxmox VE":
           - "Teoría": iso-ut2.2-proxmox.md
           - "Práctica 1": iso-ut2-practica1-proxmox.md
-      # Oculto de momento (quitar la # para publicarlo):
-      # - "2.3 Amazon Web Services (AWS)": iso-ut2.3-aws.md
+      - "2.3 Amazon Web Services (AWS)": iso-ut2.3-aws.md
 
 extra_css:
   - assets/extra.css
