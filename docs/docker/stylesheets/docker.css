@@ -1,0 +1,8 @@
+/* Capturas del apartado de Docker: todas al ancho del texto */
+.md-typeset img.captura {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin: 1em auto;
+  border-radius: 4px;
+}

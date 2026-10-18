@@ -27,6 +27,10 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
   - tables
+  - md_in_html
+  - pymdownx.emoji:
+     emoji_index: !!python/name:material.extensions.emoji.twemoji
+     emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - toc:
       permalink: true
 
@@ -38,6 +42,10 @@ nav:
           - "Teoría": iso-ut2.2-proxmox.md
           - "Práctica 1": iso-ut2-practica1-proxmox.md
       - "2.3 Amazon Web Services (AWS)": iso-ut2.3-aws.md
+      - "2.4 Docker":
+          - "Teoría": docker/index.md
+          - "Laboratorio Python": docker/laboratorio-python.md
 
 extra_css:
   - assets/extra.css
+  - docker/stylesheets/docker.css
