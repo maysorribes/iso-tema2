@@ -1,0 +1,1522 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Apuntes del módulo Implantación de Sistemas Operativos (ASIR) - Tema 2">
+      
+      
+      
+      
+        <link rel="prev" href="../iso-ut2.3-aws/">
+      
+      
+        <link rel="next" href="acciones/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Teoría - ISO · Tema 2 · Virtualización</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/extra.css">
+    
+      <link rel="stylesheet" href="stylesheets/docker.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#contenedores-con-docker" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href=".." title="ISO · Tema 2 · Virtualización" class="md-header__button md-logo" aria-label="ISO · Tema 2 · Virtualización" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            ISO · Tema 2 · Virtualización
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Teoría
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo oscuro"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Modo oscuro" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Modo claro"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Modo claro" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="ISO · Tema 2 · Virtualización" class="md-nav__button md-logo" aria-label="ISO · Tema 2 · Virtualización" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    ISO · Tema 2 · Virtualización
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UT2. Virtualización
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    UT2. Virtualización
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.1-conceptos-virtualizacion/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.1 Conceptos básicos sobre virtualización
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_2" id="__nav_2_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.2 Proxmox VE
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2.2 Proxmox VE
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.2-proxmox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2-practica1-proxmox/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Práctica 1
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../iso-ut2.3-aws/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.3 Amazon Web Services (AWS)
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_4" id="__nav_2_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2.4 Docker
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    2.4 Docker
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoría
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teoría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es Docker?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-docker-en-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalación de Docker en Ubuntu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalación de Docker en Ubuntu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pasos-post-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pasos post-instalación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vista-rapida-del-comando-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vista rápida del comando docker
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vista rápida del comando docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-listar-los-subcomandos-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Listar los subcomandos disponibles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-listar-las-opciones-de-un-subcomando" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Listar las opciones de un subcomando
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ejecutar-un-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Ejecutar un contenedor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-buscar-una-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Buscar una imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-descargar-una-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Descargar una imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-consultar-las-imagenes-descargadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Consultar las imágenes descargadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-ejecutar-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Ejecutar contenedores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-consultar-los-contenedores-en-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Consultar los contenedores en ejecución
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-iniciar-un-contenedor-detenido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Iniciar un contenedor detenido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-borrar-un-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Borrar un contenedor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-borrar-un-contenedor-por-su-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Borrar un contenedor por su ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-borrar-una-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Borrar una imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consolidar-los-cambios-de-un-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consolidar los cambios de un contenedor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consolidar los cambios de un contenedor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consultar-el-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consultar el log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-contenido-del-servidor-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modificar el contenido del servidor web
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guardar-los-cambios-en-una-nueva-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guardar los cambios en una nueva imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="acciones/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Principales acciones
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="laboratorio-python/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Laboratorio Python
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#introduccion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Introducción
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#que-es-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Qué es Docker?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#instalacion-de-docker-en-ubuntu" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instalación de Docker en Ubuntu
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Instalación de Docker en Ubuntu">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pasos-post-instalacion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pasos post-instalación
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vista-rapida-del-comando-docker" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vista rápida del comando docker
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Vista rápida del comando docker">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-listar-los-subcomandos-disponibles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. Listar los subcomandos disponibles
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-listar-las-opciones-de-un-subcomando" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Listar las opciones de un subcomando
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-ejecutar-un-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Ejecutar un contenedor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-buscar-una-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Buscar una imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-descargar-una-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Descargar una imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-consultar-las-imagenes-descargadas" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Consultar las imágenes descargadas
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#7-ejecutar-contenedores" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Ejecutar contenedores
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#8-consultar-los-contenedores-en-ejecucion" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Consultar los contenedores en ejecución
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#9-iniciar-un-contenedor-detenido" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Iniciar un contenedor detenido
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#10-borrar-un-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        10. Borrar un contenedor
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#11-borrar-un-contenedor-por-su-id" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        11. Borrar un contenedor por su ID
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#12-borrar-una-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        12. Borrar una imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consolidar-los-cambios-de-un-contenedor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consolidar los cambios de un contenedor
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consolidar los cambios de un contenedor">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consultar-el-log" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Consultar el log
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#modificar-el-contenido-del-servidor-web" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modificar el contenido del servidor web
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#guardar-los-cambios-en-una-nueva-imagen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Guardar los cambios en una nueva imagen
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#referencias" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Referencias
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="contenedores-con-docker">Contenedores con Docker<a class="headerlink" href="#contenedores-con-docker" title="Permanent link">&para;</a></h1>
+<h2 id="introduccion">Introducción<a class="headerlink" href="#introduccion" title="Permanent link">&para;</a></h2>
+<p>En este apartado se muestra y ejemplifica cómo se utiliza Docker desde cero, con las funcionalidades más básicas. Al terminarlo serás capaz de:</p>
+<ul>
+<li>Comprender qué es Docker.</li>
+<li>Instalar Docker en Ubuntu mediante la terminal.</li>
+<li>Utilizar los comandos <code>docker</code>.</li>
+<li>Descargar imágenes Docker desde Docker Hub.</li>
+<li>Diferenciar entre imágenes y contenedores, y consolidar los cambios de un contenedor en una nueva imagen.</li>
+</ul>
+<p><img alt="Docker" class="captura" src="img/docker.png" /></p>
+<h2 id="que-es-docker">¿Qué es Docker?<a class="headerlink" href="#que-es-docker" title="Permanent link">&para;</a></h2>
+<p><strong>Docker</strong> es un programa que realiza virtualización a nivel de sistema operativo, en unidades llamadas <strong>contenedores</strong>.</p>
+<p>Existe un repositorio público donde se puede disponer de casi cualquier aplicación. Además, también es posible crear contenedores propios con un lenguaje muy sencillo.</p>
+<p>A día de hoy, es la <strong>forma más sencilla de probar cualquier tipo de software</strong>, ya que no interfiere con el sistema operativo. Por ejemplo, si instalamos cualquier programa en Linux con <code>apt</code>, se instalarán librerías, se crearán directorios, cambiarán servicios, etc., y puede incluso que interfiera con la instalación actual. Con Docker, todo está dentro del contenedor. Se pueden tener distintas versiones corriendo simultáneamente, el mismo software corriendo múltiples veces, escalar automáticamente, actualizar y, si hay cualquier problema, volver a la versión anterior en cuestión de segundos.</p>
+<p>Con <strong>Docker CE</strong> (<em>Community Edition</em>), la compañía ha decidido separar sus servicios empresariales, con servicios premium y de soporte, de la versión de la comunidad. ¿Significa eso que la versión de la comunidad tiene menos soporte o uso? No. Solo significa que es la gratuita. Como ejemplo, empresas como Amazon utilizan la Community Edition en sus servicios en la nube.</p>
+<p>Los <strong>contenedores de Docker</strong> se construyen a partir de <strong>imágenes de Docker</strong>. Estas imágenes se obtienen de <a href="https://hub.docker.com/">Docker Hub</a>, un registro de imágenes gestionado por la empresa Docker. Cualquiera puede subir sus imágenes ahí, de modo que hay una gran librería de imágenes.</p>
+<h2 id="instalacion-de-docker-en-ubuntu">Instalación de Docker en Ubuntu<a class="headerlink" href="#instalacion-de-docker-en-ubuntu" title="Permanent link">&para;</a></h2>
+<p>La instalación se realiza desde el repositorio oficial de Docker, siguiendo el procedimiento que indica la <a href="https://docs.docker.com/engine/install/ubuntu/">documentación oficial</a>. Las acciones a realizar son:</p>
+<p><strong>1. Actualizar la lista de paquetes existentes del sistema.</strong></p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</code></pre></div>
+<p><strong>2. Instalar los paquetes de requisitos previos</strong>, que permiten descargar paquetes a través del protocolo HTTPS y verificar sus certificados.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>ca-certificates<span class="w"> </span>curl
+</code></pre></div>
+<p><strong>3. Añadir la clave GPG</strong> (GNU Privacy Guard) del repositorio oficial de Docker. Se crea el directorio donde APT guarda las claves de los repositorios, se descarga en él la clave de Docker y se le dan permisos de lectura:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>install<span class="w"> </span>-m<span class="w"> </span><span class="m">0755</span><span class="w"> </span>-d<span class="w"> </span>/etc/apt/keyrings
+sudo<span class="w"> </span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://download.docker.com/linux/ubuntu/gpg<span class="w"> </span>-o<span class="w"> </span>/etc/apt/keyrings/docker.asc
+sudo<span class="w"> </span>chmod<span class="w"> </span>a+r<span class="w"> </span>/etc/apt/keyrings/docker.asc
+</code></pre></div>
+<p><strong>4. Agregar el repositorio de Docker</strong> a las fuentes de APT:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">echo</span><span class="w"> </span><span class="s2">"deb [arch=</span><span class="k">$(</span>dpkg<span class="w"> </span>--print-architecture<span class="k">)</span><span class="s2"> signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu </span><span class="k">$(</span>.<span class="w"> </span>/etc/os-release<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">"</span><span class="si">${</span><span class="nv">UBUNTU_CODENAME</span><span class="k">:-</span><span class="nv">$VERSION_CODENAME</span><span class="si">}</span><span class="s2">"</span><span class="k">)</span><span class="s2"> stable"</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sudo<span class="w"> </span>tee<span class="w"> </span>/etc/apt/sources.list.d/docker.list<span class="w"> </span>&gt;<span class="w"> </span>/dev/null
+</code></pre></div>
+<p>Este comando crea el fichero <code>/etc/apt/sources.list.d/docker.list</code> con la línea del repositorio. Las partes entre <code>$( )</code> se sustituyen automáticamente por la arquitectura del equipo (por ejemplo, <code>amd64</code>) y por el nombre en clave de la versión de Ubuntu instalada (por ejemplo, <code>noble</code> en Ubuntu 24.04), de modo que el mismo comando sirve para cualquier versión. La opción <code>signed-by</code> indica a APT qué clave debe usar para verificar los paquetes de este repositorio.</p>
+<p><strong>5. Actualizar de nuevo la lista de paquetes</strong>, con el repositorio de Docker recién agregado.</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>update
+</code></pre></div>
+<p><strong>6. Comprobar desde qué repositorio se va a instalar Docker antes de instalarlo.</strong> Interesa que se instale desde el repositorio de Docker que se acaba de agregar, en lugar de desde el predeterminado de Ubuntu (podría dar problemas). Para ello se ejecuta:</p>
+<div class="highlight"><pre><span></span><code>apt-cache<span class="w"> </span>policy<span class="w"> </span>docker-ce
+</code></pre></div>
+<p><img alt="apt-cache policy docker-ce" class="captura" src="img/policy-docker.png" /></p>
+<p>Se muestra la lista de versiones disponibles y el repositorio del que procede cada una. Como se puede comprobar en la figura, todas proceden de <code>download.docker.com</code>, el repositorio de Docker recién agregado, así que todo es correcto. (La captura corresponde a un Ubuntu 20.04, <code>focal</code>; en tu equipo aparecerá el nombre de tu versión.)</p>
+<p><strong>7. Instalar Docker</strong> (la versión de la comunidad, <em>Community Edition</em>) junto con sus componentes:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>docker-ce<span class="w"> </span>docker-ce-cli<span class="w"> </span>containerd.io<span class="w"> </span>docker-buildx-plugin<span class="w"> </span>docker-compose-plugin
+</code></pre></div>
+<p>Donde:</p>
+<ul>
+<li><strong><code>docker-ce</code></strong>: el motor de Docker (el demonio que gestiona los contenedores).</li>
+<li><strong><code>docker-ce-cli</code></strong>: el cliente, es decir, el comando <code>docker</code>.</li>
+<li><strong><code>containerd.io</code></strong>: el entorno de ejecución que arranca y supervisa los contenedores.</li>
+<li><strong><code>docker-buildx-plugin</code></strong>: la herramienta para construir imágenes.</li>
+<li><strong><code>docker-compose-plugin</code></strong>: Docker Compose, para definir aplicaciones de varios contenedores.</li>
+</ul>
+<p><strong>8. Docker ya está instalado</strong> y, como demonio de Ubuntu, se puede manejar mediante <code>systemctl</code> o <code>service</code>:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>systemctl<span class="w"> </span>status<span class="w"> </span>docker
+</code></pre></div>
+<p><img alt="systemctl status docker" class="captura" src="img/status-docker.png" /></p>
+<p>Una vez instalado, para probar su funcionamiento se puede ejecutar:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>hello-world
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Con este comando le pedimos a Docker que cree un contenedor con un programa llamado <em>hello-world</em> y que luego lo ejecute.</p>
+</div>
+<p>Si funciona, significa que Docker se ha instalado correctamente, que puede conectar con el servidor, descargar una imagen, ejecutarla y mostrar el resultado.</p>
+<figure>
+<p><img alt="docker run hello-world" class="captura" src="img/run-hello-world.png" />
+  </p>
+<figcaption><strong>Figura 1.</strong> Prueba de funcionamiento.</figcaption>
+</figure>
+<h3 id="pasos-post-instalacion">Pasos post-instalación<a class="headerlink" href="#pasos-post-instalacion" title="Permanent link">&para;</a></h3>
+<p>Una vez instalado Docker y probado su funcionamiento, el siguiente paso es configurar un usuario para utilizar Docker.</p>
+<p>Por defecto, el comando <code>docker</code>, que se comunica con el demonio Docker, está configurado para ser utilizado por <strong>root</strong> o por los usuarios del grupo <strong>docker</strong>, que se crea automáticamente durante la instalación.</p>
+<p>Los superusuarios (<em>sudoers</em>, pertenecientes al grupo <code>sudo</code>) también pueden usar estos comandos anteponiendo <code>sudo</code>. Para no tener que usar <code>sudo</code> siempre, basta con agregar el usuario al grupo <code>docker</code>:</p>
+<div class="highlight"><pre><span></span><code>sudo<span class="w"> </span>usermod<span class="w"> </span>-aG<span class="w"> </span>docker<span class="w"> </span><span class="nv">$USER</span>
+</code></pre></div>
+<p>Donde <code>$USER</code> es el usuario que se desea añadir al grupo (puedes escribir su nombre directamente) para que pueda utilizar los comandos Docker sin prefijarlos con <code>sudo</code> y sin ser root durante la tarea diaria.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>El cambio de grupo no se aplica hasta que el usuario cierra sesión y vuelve a entrar (o ejecuta <code>newgrp docker</code>).</p>
+</div>
+<h2 id="vista-rapida-del-comando-docker">Vista rápida del comando <code>docker</code><a class="headerlink" href="#vista-rapida-del-comando-docker" title="Permanent link">&para;</a></h2>
+<p><img alt="Sintaxis del comando docker" class="captura" src="img/docker-run.png" /></p>
+<h3 id="1-listar-los-subcomandos-disponibles">1. Listar los subcomandos disponibles<a class="headerlink" href="#1-listar-los-subcomandos-disponibles" title="Permanent link">&para;</a></h3>
+<p>Ejecutando el comando <code>docker</code> en la consola se listan todos los subcomandos disponibles.</p>
+<p><img alt="Comando docker" class="captura" src="img/comando-docker.png" /></p>
+<h3 id="2-listar-las-opciones-de-un-subcomando">2. Listar las opciones de un subcomando<a class="headerlink" href="#2-listar-las-opciones-de-un-subcomando" title="Permanent link">&para;</a></h3>
+<p>Con <code>docker &lt;subcomando&gt; --help</code> se consultan las opciones disponibles de un subcomando concreto.</p>
+<h3 id="3-ejecutar-un-contenedor">3. Ejecutar un contenedor<a class="headerlink" href="#3-ejecutar-un-contenedor" title="Permanent link">&para;</a></h3>
+<p>Con el comando <code>docker run</code> primero se crea un contenedor a partir de una imagen (si no se tiene en local, se descarga de <a href="https://hub.docker.com/">Docker Hub</a>) y después se ejecuta dicho contenedor. Ejemplo: <code>docker run hello-world</code>.</p>
+<h3 id="4-buscar-una-imagen">4. Buscar una imagen<a class="headerlink" href="#4-buscar-una-imagen" title="Permanent link">&para;</a></h3>
+<p>Con <code>docker search [opciones] &lt;término&gt;</code> se busca una imagen en Docker Hub. Ejemplo: <code>docker search ubuntu</code>.</p>
+<p><img alt="docker search ubuntu" class="captura" src="img/docker-search.png" /></p>
+<h3 id="5-descargar-una-imagen">5. Descargar una imagen<a class="headerlink" href="#5-descargar-una-imagen" title="Permanent link">&para;</a></h3>
+<p>Para descargar una imagen concreta se utiliza <code>docker pull</code>:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>pull<span class="w"> </span>ubuntu
+</code></pre></div>
+<p><img alt="docker pull ubuntu" class="captura" src="img/docker-pull-ubuntu.png" /></p>
+<p><img alt="Imagen de Ubuntu descargada" class="captura" src="img/imagen-ubuntu-descargada.png" /></p>
+<h3 id="6-consultar-las-imagenes-descargadas">6. Consultar las imágenes descargadas<a class="headerlink" href="#6-consultar-las-imagenes-descargadas" title="Permanent link">&para;</a></h3>
+<p>Para consultar las imágenes que hemos descargado se utiliza <code>docker images</code>:</p>
+<p><img alt="docker images" class="captura" src="img/docker-images.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Las imágenes que descargamos de Docker Hub pueden modificarse para crear imágenes nuevas y estas, a su vez, pueden subirse a Docker Hub o a otros registros de Docker.</p>
+</div>
+<h3 id="7-ejecutar-contenedores">7. Ejecutar contenedores<a class="headerlink" href="#7-ejecutar-contenedores" title="Permanent link">&para;</a></h3>
+<p>Para ejecutar un contenedor de forma interactiva se usa <code>docker run -it &lt;imagen&gt;</code>. Por ejemplo:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>ubuntu
+</code></pre></div>
+<ul>
+<li><strong><code>-i</code></strong> y <strong><code>-t</code></strong> sirven para que el proceso del contenedor sea interactivo con la terminal de Linux.</li>
+</ul>
+<p><img alt="docker run -it ubuntu" class="captura" src="img/docker-run-it.png" /></p>
+<p>Como se aprecia en la figura, la <strong>segunda línea</strong> ya es la terminal del Ubuntu que se ejecuta en el contenedor.</p>
+<p>Para <strong>salir del contenedor</strong> hay que escribir <code>exit</code>.</p>
+<p><img alt="Salir del contenedor" class="captura" src="img/salir-contenedor.png" /></p>
+<p>Si se desea dar un nombre a la instancia en lugar de que Docker le asigne uno aleatorio:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--name<span class="w"> </span>ubuntu-dam<span class="w"> </span>ubuntu
+</code></pre></div>
+<p>Donde:</p>
+<ul>
+<li><strong><code>--name ubuntu-dam</code></strong>: es el nombre que se le quiere dar al contenedor, en este caso <code>ubuntu-dam</code>.</li>
+<li><strong><code>ubuntu</code></strong>: es el nombre de la imagen a partir de la que se crea.</li>
+</ul>
+<p><img alt="docker run --name ubuntu-dam" class="captura" src="img/run-ubuntu-dam.png" /></p>
+<p><img alt="Contenedor ubuntu-dam" class="captura" src="img/ubuntu-dam.png" /></p>
+<h3 id="8-consultar-los-contenedores-en-ejecucion">8. Consultar los contenedores en ejecución<a class="headerlink" href="#8-consultar-los-contenedores-en-ejecucion" title="Permanent link">&para;</a></h3>
+<p>Para consultar los contenedores que están corriendo se utiliza <code>docker ps</code>.</p>
+<p><img alt="docker ps" class="captura" src="img/docker-ps.png" /></p>
+<p>Para consultar todos los contenedores, tanto activos como detenidos, se utiliza <code>docker ps -a</code>.</p>
+<p><img alt="docker ps -a" class="captura" src="img/docker-ps-a.png" /></p>
+<p>Por último, para consultar el último contenedor creado se utiliza <code>docker ps -l</code>.</p>
+<p><img alt="docker ps -l" class="captura" src="img/docker-ps-l.png" /></p>
+<h3 id="9-iniciar-un-contenedor-detenido">9. Iniciar un contenedor detenido<a class="headerlink" href="#9-iniciar-un-contenedor-detenido" title="Permanent link">&para;</a></h3>
+<p>Para iniciar un contenedor detenido (no confundir con <code>docker run</code>, que crea uno nuevo):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>start<span class="w"> </span>&lt;id<span class="p">|</span>nombre_contenedor&gt;
+</code></pre></div>
+<h3 id="10-borrar-un-contenedor">10. Borrar un contenedor<a class="headerlink" href="#10-borrar-un-contenedor" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rm<span class="w"> </span>&lt;id<span class="p">|</span>nombre_contenedor&gt;
+</code></pre></div>
+<p>Ejemplo:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rm<span class="w"> </span>ubuntu-dam
+</code></pre></div>
+<p><img alt="docker rm ubuntu-dam" class="captura" src="img/rm-ubuntu-dam.png" /></p>
+<h3 id="11-borrar-un-contenedor-por-su-id">11. Borrar un contenedor por su ID<a class="headerlink" href="#11-borrar-un-contenedor-por-su-id" title="Permanent link">&para;</a></h3>
+<p>Para eliminar contenedores por su ID, primero se listan los contenedores para conocer su ID:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>ps<span class="w"> </span>-a
+</code></pre></div>
+<p><img alt="docker ps -a" class="captura" src="img/docker-ps-a.1.png" /></p>
+<p>En este caso se elimina el contenedor con ID <strong>3e39d7e33100</strong>.</p>
+<p><img alt="docker rm por ID" class="captura" src="img/docker-rm-id.png" /></p>
+<p>Si se consulta de nuevo la lista de contenedores, ya no aparece el que se acaba de borrar.</p>
+<p><img alt="docker ps -a tras borrar" class="captura" src="img/docker-ps-a-2.png" /></p>
+<p>Se pueden borrar varios contenedores a la vez indicando sus ID separados por espacios:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rm<span class="w"> </span>a794f16f8645<span class="w"> </span>588f3d92fa72<span class="w"> </span>7d945b5d813e<span class="w"> </span>e3189b5cfa25
+</code></pre></div>
+<p><img alt="Borrado múltiple" class="captura" src="img/docker-rm-mul.png" /></p>
+<h3 id="12-borrar-una-imagen">12. Borrar una imagen<a class="headerlink" href="#12-borrar-una-imagen" title="Permanent link">&para;</a></h3>
+<p>Para borrar una imagen se utiliza <code>docker rmi</code> seguido de la imagen que se desea eliminar. Para conocer el ID de la imagen se puede utilizar <code>docker images -a</code>. En este ejemplo se elimina la imagen de <em>hello-world</em>:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>rmi<span class="w"> </span>feb5d9fea6a5
+</code></pre></div>
+<p><img alt="docker rmi" class="captura" src="img/borrar-imagen-docker.png" /></p>
+<h2 id="consolidar-los-cambios-de-un-contenedor">Consolidar los cambios de un contenedor<a class="headerlink" href="#consolidar-los-cambios-de-un-contenedor" title="Permanent link">&para;</a></h2>
+<p>Cuando se crea un contenedor con <code>docker run &lt;imagen&gt;</code>, se pueden modificar y eliminar archivos y hacer lo que se quiera con él. Pero todos esos cambios solo se guardan en ese contenedor, de manera que, si se hace <code>docker rm</code> para eliminarlo, se perderá todo.</p>
+<p>Para evitarlo, se pueden consolidar los cambios en una nueva imagen de Docker, de forma que se pueda compartir fácilmente y tener siempre una copia del contenedor en el estado deseado.</p>
+<div class="admonition example">
+<p class="admonition-title">Creando un contenedor con un servidor web en una máquina virtual Ubuntu Server</p>
+<p>Hay muchas imágenes en el registro público Docker Hub. Por ejemplo, podemos crear un servidor web con Apache (<code>httpd</code>):</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>my-apache-app<span class="w"> </span>-p<span class="w"> </span><span class="m">8080</span>:80<span class="w"> </span>httpd
+</code></pre></div>
+<p><img alt="Contenedor httpd" class="captura" src="img/contenedor-httpd.png" /></p>
+<p>El contenedor se está ejecutando y, con la opción <code>-p</code>, mapeamos un puerto del equipo donde está instalado Docker con un puerto del contenedor: si accedemos a la IP del equipo que tiene Docker (en este caso un Ubuntu Server) por el primer puerto indicado, la petición se redirige al contenedor por el segundo puerto indicado. Nunca utilizamos directamente la IP del contenedor para acceder a él.</p>
+<p>Para probarlo, accede desde un navegador a la IP del servidor con Docker y al puerto 8080 (en el ejemplo, <code>http://192.168.0.25:8080</code>):</p>
+<p><img alt="Acceso a Apache" class="captura" src="img/acceso-apache-1.png" /></p>
+</div>
+<h3 id="consultar-el-log">Consultar el log<a class="headerlink" href="#consultar-el-log" title="Permanent link">&para;</a></h3>
+<p>Para acceder al log del contenedor podemos ejecutar:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>logs<span class="w"> </span>my-apache-app
+</code></pre></div>
+<p><img alt="docker logs" class="captura" src="img/log-apache.png" /></p>
+<p>Con la opción <code>docker logs -f</code> seguimos visualizando los logs en tiempo real.</p>
+<h3 id="modificar-el-contenido-del-servidor-web">Modificar el contenido del servidor web<a class="headerlink" href="#modificar-el-contenido-del-servidor-web" title="Permanent link">&para;</a></h3>
+<p>Si <strong>consultamos la documentación</strong> de la imagen <a href="https://hub.docker.com/_/httpd">httpd</a> en Docker Hub, vemos que el servidor web del contenedor guarda sus ficheros (directorio <em>DocumentRoot</em>) en <code>/usr/local/apache2/htdocs/</code>. Vamos a crear un nuevo fichero <code>index.html</code> en ese directorio.</p>
+<p>Lo podemos hacer de varias formas:</p>
+<p><strong>1. Accediendo de forma interactiva al contenedor</strong> y haciendo la modificación:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>my-apache-app<span class="w"> </span>bash
+</code></pre></div>
+<p><img alt="docker exec -it" class="captura" src="img/docker-exec-apache2-bash.png" /></p>
+<p>Ya dentro del contenedor:</p>
+<div class="highlight"><pre><span></span><code><span class="nb">cd</span><span class="w"> </span>/usr/local/apache2/htdocs/
+<span class="nb">echo</span><span class="w"> </span><span class="s2">"&lt;h1&gt;Servidor Web - Docker&lt;/h1&gt;"</span><span class="w"> </span>&gt;<span class="w"> </span>index.html
+<span class="nb">exit</span>
+</code></pre></div>
+<p><img alt="Cambiar index.html" class="captura" src="img/cambiar-index.png" /></p>
+<p><strong>2. Ejecutando directamente el comando</strong> de creación del fichero en el contenedor:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>my-apache-app<span class="w"> </span>bash<span class="w"> </span>-c<span class="w"> </span><span class="s1">'echo "&lt;h1&gt;Servidor Web - Docker&lt;/h1&gt;" &gt; /usr/local/apache2/htdocs/index.html'</span>
+</code></pre></div>
+<p>Independientemente de cómo hayamos creado el fichero, podemos volver a acceder al servidor web y comprobar que se ha modificado el contenido del <code>index.html</code>:</p>
+<p><img alt="Nueva web" class="captura" src="img/nueva-web.png" /></p>
+<h3 id="guardar-los-cambios-en-una-nueva-imagen">Guardar los cambios en una nueva imagen<a class="headerlink" href="#guardar-los-cambios-en-una-nueva-imagen" title="Permanent link">&para;</a></h3>
+<p>Para consolidar el contenedor modificado en una imagen nueva se utiliza <code>docker commit</code>:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>commit<span class="w"> </span>my-apache-app<span class="w"> </span>mi-apache:v1
+docker<span class="w"> </span>images
+</code></pre></div>
+<p>A partir de esa imagen se pueden crear nuevos contenedores que ya incluyen la web modificada:</p>
+<div class="highlight"><pre><span></span><code>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>--name<span class="w"> </span>apache-copia<span class="w"> </span>-p<span class="w"> </span><span class="m">8081</span>:80<span class="w"> </span>mi-apache:v1
+</code></pre></div>
+<h2 id="referencias">Referencias<a class="headerlink" href="#referencias" title="Permanent link">&para;</a></h2>
+<ul>
+<li><a href="https://hub.docker.com/">Docker Hub</a>: repositorio con gran cantidad de imágenes de contenedores ya configuradas. Además, actúa como <em>hosting</em> gratuito para alojar imágenes, tanto de forma pública como privada.</li>
+<li><a href="https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes-es">Cómo eliminar imágenes, contenedores y volúmenes de Docker</a></li>
+<li><a href="https://platzi.com/tutoriales/1432-docker/3268-como-crear-un-contenedor-con-docker-mysql-y-persistir-la-informacion/">Cómo crear un contenedor con Docker-MySQL y persistir la información</a></li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+    
+  </body>
+</html>
