@@ -44,6 +44,7 @@ nav:
       - "2.3 Amazon Web Services (AWS)": iso-ut2.3-aws.md
       - "2.4 Docker":
           - "Teoría": docker/index.md
+          - "Principales acciones": docker/acciones.md
           - "Laboratorio Python": docker/laboratorio-python.md
 
 extra_css:
